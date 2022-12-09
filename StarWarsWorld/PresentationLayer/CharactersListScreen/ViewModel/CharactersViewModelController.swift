@@ -18,7 +18,7 @@ class CharactersViewModelController : ICharactersViewModelController {
     private let requestSender: IRequestSender
     private let requestFactory: IRequestFactory
     
-    let model: CharactersModel?
+    private let model: CharactersModel?
     var charactersViewModel: [CharactersListViewModel] = []
     
     var charactersCount: Int {

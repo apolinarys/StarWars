@@ -16,6 +16,8 @@ protocol IRequestFactory {
     func filmsConfig() -> RequestConfig<FilmsParser>
     
     func characterConfig(url: String) -> RequestConfig<CharactersParser>
+    
+    func worldConfig(url: String) -> RequestConfig<WorldParser>
 }
 
 struct RequestsFactory: IRequestFactory {
@@ -32,5 +34,10 @@ struct RequestsFactory: IRequestFactory {
     func characterConfig(url: String) -> RequestConfig<CharactersParser> {
         RequestConfig(request: CharactersRequest(urlString: url),
                       parser: CharactersParser())
+    }
+    
+    func worldConfig(url: String) -> RequestConfig<WorldParser> {
+        RequestConfig(request: WorldRequest(urlString: url),
+                      parser: WorldParser())
     }
 }
