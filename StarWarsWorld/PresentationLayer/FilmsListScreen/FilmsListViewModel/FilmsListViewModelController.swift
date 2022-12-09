@@ -39,36 +39,16 @@ class FilmsListViewModelController: IFilmsListViewModelController {
                 DispatchQueue.main.async {
                     success?()
                 }
-            } catch {
-                
+            } catch NetworkError.unknownError {
+                DispatchQueue.main.async {
+                    failure?("Request timeout")
+                }
+            } catch NetworkError.noConnection {
+                DispatchQueue.main.async {
+                    failure?("No internet connection")
+                }
             }
         }
-        
-//        requestSender.send(requestConfig: requestFactory.contactsConfig()) { [weak self] result in
-//            switch result {
-//            case .success(let films):
-//                self?.filmsViewModelList = films.map { film in
-//                    let date = film.date.split(separator: "-")
-//                    return FilmsListViewModel(title: film.name, director: film.director, producer: film.producer, date: "\(date[2]).\(date[1]).\(date[0])")
-//                }
-//                DispatchQueue.main.async {
-//                    success?()
-//                }
-//            case .failure(let error):
-//                switch error {
-//                case .badURL, .badData:
-//                    Logger.shared.message(error.localizedDescription)
-//                case .unknownError:
-//                    DispatchQueue.main.async {
-//                        failure?("Request time out")
-//                    }
-//                case .noConnection:
-//                    DispatchQueue.main.async {
-//                        failure?("No internet connection")
-//                    }
-//                }
-//            }
-//        }
     }
     
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel? {

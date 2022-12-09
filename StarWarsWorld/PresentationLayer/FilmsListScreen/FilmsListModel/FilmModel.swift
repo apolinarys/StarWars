@@ -13,4 +13,5 @@ struct FilmModel {
     let producer: String
     let date: String
     let episode: Int
+    let characters: [String]
 }

@@ -21,11 +21,7 @@ class FilmsListViewController: UIViewController {
         
         tableView.dataSource = self
         
-        viewModelController?.loadContacts({ [weak self] in
-            self?.tableView.reloadData()
-        }, failure: { [weak self] message in
-            self?.showErrorAlert(message: message)
-        })
+        getContacts()
     }
 
     
@@ -34,20 +30,22 @@ class FilmsListViewController: UIViewController {
         let alertAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel)
         alertController.addAction(alertAction)
         
+        let retryAction = UIAlertAction(title: "Retry", style: UIAlertAction.Style.default) {[weak self] _  in
+            self?.getContacts()
+        }
+        
+        alertController.addAction(retryAction)
+        
         self.present(alertController, animated: true)
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    private func getContacts() {
+        viewModelController?.loadContacts({ [weak self] in
+            self?.tableView.reloadData()
+        }, failure: { [weak self] message in
+            self?.showErrorAlert(message: message)
+        })
     }
-    */
-
 }
 
 extension FilmsListViewController: UITableViewDataSource {

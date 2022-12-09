@@ -20,7 +20,7 @@ struct FilmsParser: IParser {
         decoder.keyDecodingStrategy = JSONDecoder.KeyDecodingStrategy.convertFromSnakeCase
         
         do {
-            let decodedData = try decoder.decode(ResponseModel.self, from: data)
+            let decodedData = try decoder.decode(FilmsResponseModel.self, from: data)
             
             var films = decodedData.results.compactMap { film in
                 FilmModel(name: film.title,
