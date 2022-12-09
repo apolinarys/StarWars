@@ -12,7 +12,7 @@ protocol IRequestSender {
     
     // MARK: - Methods
     
-    func send<Parser>(requestConfig config: RequestConfig<Parser>) async throws -> [FilmModel]? where Parser: IParser
+    func send<Parser>(requestConfig config: RequestConfig<Parser>) async throws -> Parser.Model? where Parser: IParser
 }
 
 struct RequestSender: IRequestSender {
@@ -23,7 +23,7 @@ struct RequestSender: IRequestSender {
     
     // MARK: - IRequestSender
     
-    func send<Parser>(requestConfig config: RequestConfig<Parser>) async throws -> [FilmModel]? where Parser: IParser {
+    func send<Parser>(requestConfig config: RequestConfig<Parser>) async throws -> Parser.Model? where Parser: IParser {
         
         guard let urlRequest = config.request.urlRequest else {
             throw NetworkError.badData
@@ -41,7 +41,7 @@ struct RequestSender: IRequestSender {
             throw NetworkError.badData
         }
         
-        return parsedModel as? [FilmModel]
+        return parsedModel
         
 //        let task = session.dataTask(with: urlRequest) { data, _, error in
 //            guard error == nil else {

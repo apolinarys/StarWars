@@ -11,6 +11,7 @@ protocol IFilmsListViewModelController {
     var filmsCount: Int { get }
     func loadContacts(_ success: (() -> Void)?, failure: ((String) -> Void)?)
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel?
+    func createCharactersModel(at indexPath: IndexPath) -> CharactersModel
 }
 
 class FilmsListViewModelController: IFilmsListViewModelController {
@@ -18,6 +19,7 @@ class FilmsListViewModelController: IFilmsListViewModelController {
     private var filmsViewModelList: [FilmsListViewModel] = []
     private let requestSender: IRequestSender
     private let requestFactory: IRequestFactory
+    private var filmsModel: [FilmModel] = []
     
     init(requestSender: IRequestSender, requestFactory: IRequestFactory) {
         self.requestSender = requestSender
@@ -31,11 +33,11 @@ class FilmsListViewModelController: IFilmsListViewModelController {
     func loadContacts(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
         Task(priority: .userInitiated) {
             do {
-                let films = try await requestSender.send(requestConfig: requestFactory.contactsConfig())
-                filmsViewModelList = films?.map {film in
+                filmsModel = try await requestSender.send(requestConfig: requestFactory.filmsConfig()) ?? []
+                filmsViewModelList = filmsModel.map {film in
                     let date = film.date.split(separator: "-")
                     return FilmsListViewModel(title: film.name, director: film.director, producer: film.producer, date: "\(date[2]).\(date[1]).\(date[0])")
-                } ?? []
+                }
                 DispatchQueue.main.async {
                     success?()
                 }
@@ -49,6 +51,10 @@ class FilmsListViewModelController: IFilmsListViewModelController {
                 }
             }
         }
+    }
+    
+    func createCharactersModel(at indexPath: IndexPath) -> CharactersModel {
+        return CharactersModel(urls: filmsModel[indexPath.row].characters)
     }
     
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel? {

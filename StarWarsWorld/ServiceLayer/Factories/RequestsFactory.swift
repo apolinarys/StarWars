@@ -13,17 +13,24 @@ protocol IRequestFactory {
     // MARK: - Private Methods
     
     /// Возвращает запрос фильмов.
-    func contactsConfig() -> RequestConfig<FilmsParser>
+    func filmsConfig() -> RequestConfig<FilmsParser>
+    
+    func characterConfig(url: String) -> RequestConfig<CharactersParser>
 }
 
 struct RequestsFactory: IRequestFactory {
     
     // MARK: - IRequestFactory
     
-    func contactsConfig() -> RequestConfig<FilmsParser> {
+    func filmsConfig() -> RequestConfig<FilmsParser> {
         RequestConfig(
             request: FilmsRequest(),
             parser: FilmsParser()
         )
+    }
+    
+    func characterConfig(url: String) -> RequestConfig<CharactersParser> {
+        RequestConfig(request: CharactersRequest(urlString: url),
+                      parser: CharactersParser())
     }
 }

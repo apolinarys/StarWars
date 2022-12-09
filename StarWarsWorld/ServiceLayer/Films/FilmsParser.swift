@@ -27,7 +27,8 @@ struct FilmsParser: IParser {
                           director: film.director,
                           producer: film.producer,
                           date: film.releaseDate,
-                          episode: film.episodeId)
+                          episode: film.episodeId,
+                          characters: film.characters)
             }
             
             films = films.sorted { $0.episode < $1.episode }

@@ -10,6 +10,7 @@ import UIKit
 class FilmsListViewController: UIViewController {
     
     var viewModelController: IFilmsListViewModelController?
+    var router: IRouter?
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -20,6 +21,7 @@ class FilmsListViewController: UIViewController {
         tableView.register(UINib(nibName: "FilmsListTableViewCell", bundle: nil), forCellReuseIdentifier: "FilmsListTableViewCell")
         
         tableView.dataSource = self
+        tableView.delegate = self
         
         getContacts()
     }
@@ -61,5 +63,12 @@ extension FilmsListViewController: UITableViewDataSource {
         }
         cell.cellModel = viewModelController?.viewModel(at: indexPath)
         return cell
+    }
+}
+
+extension FilmsListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = viewModelController?.createCharactersModel(at: indexPath)
+        router?.presentCharacters(model: model)
     }
 }
