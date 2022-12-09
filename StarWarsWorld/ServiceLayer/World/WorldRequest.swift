@@ -1,5 +1,5 @@
 //
-//  CharactersRequest.swift
+//  WorldRequest.swift
 //  StarWarsWorld
 //
 //  Created by Macbook on 09.12.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CharactersRequest: IRequest {
+struct WorldRequest: IRequest {
     
     var urlString: String
     

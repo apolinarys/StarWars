@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="7n9-03-gTh">
-                        <rect key="frame" x="10" y="0.0" width="300" height="67"/>
+                        <rect key="frame" x="10" y="10" width="300" height="67"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRR-jR-zku">
                                 <rect key="frame" x="0.0" y="0.0" width="55" height="21"/>
@@ -51,7 +51,7 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="7n9-03-gTh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IhM-Xg-Hca"/>
+                    <constraint firstItem="7n9-03-gTh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="IhM-Xg-Hca"/>
                     <constraint firstAttribute="bottom" secondItem="7n9-03-gTh" secondAttribute="bottom" constant="10" id="O1q-sS-nt2"/>
                     <constraint firstAttribute="trailing" secondItem="7n9-03-gTh" secondAttribute="trailing" constant="10" id="TLb-er-7Fz"/>
                     <constraint firstItem="7n9-03-gTh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="hmJ-eX-7Q6"/>
