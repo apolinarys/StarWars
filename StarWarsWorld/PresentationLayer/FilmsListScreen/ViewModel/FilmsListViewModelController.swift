@@ -9,7 +9,7 @@ import Foundation
 
 protocol IFilmsListViewModelController {
     var filmsCount: Int { get }
-    func loadContacts(_ success: (() -> Void)?, failure: ((String) -> Void)?)
+    func loadFilms(_ success: (() -> Void)?, failure: ((String) -> Void)?)
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel?
     func createCharactersModel(at indexPath: IndexPath) -> CharactersModel
 }
@@ -30,7 +30,7 @@ class FilmsListViewModelController: IFilmsListViewModelController {
         return filmsViewModelList.count
     }
     
-    func loadContacts(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
+    func loadFilms(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
         Task(priority: .userInitiated) {
             do {
                 filmsModel = try await requestSender.send(requestConfig: requestFactory.filmsConfig()) ?? []

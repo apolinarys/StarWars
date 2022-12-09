@@ -23,7 +23,7 @@ class FilmsListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        getContacts()
+        getFilms()
     }
 
     
@@ -33,7 +33,7 @@ class FilmsListViewController: UIViewController {
         alertController.addAction(alertAction)
         
         let retryAction = UIAlertAction(title: "Retry", style: UIAlertAction.Style.default) {[weak self] _  in
-            self?.getContacts()
+            self?.getFilms()
         }
         
         alertController.addAction(retryAction)
@@ -41,8 +41,8 @@ class FilmsListViewController: UIViewController {
         self.present(alertController, animated: true)
     }
     
-    private func getContacts() {
-        viewModelController?.loadContacts({ [weak self] in
+    private func getFilms() {
+        viewModelController?.loadFilms({ [weak self] in
             self?.tableView.reloadData()
         }, failure: { [weak self] message in
             self?.showErrorAlert(message: message)

@@ -32,6 +32,7 @@ struct ViewControllersFactory: IViewControllersFactory {
                                                       requestFactory: requestFactory,
                                                       model: model)
         let view = CharactersListViewController()
+        view.viewModelController = viewModel
         return view
     }
 }

@@ -8,7 +8,9 @@
 import Foundation
 
 protocol ICharactersViewModelController {
-    
+    func loadCharacters(_ success: (() -> Void)?, failure: ((String) -> Void)?)
+    var charactersCount: Int { get }
+    func viewModel(at indexPath: IndexPath) -> CharactersListViewModel?
 }
 
 class CharactersViewModelController : ICharactersViewModelController {
@@ -18,6 +20,10 @@ class CharactersViewModelController : ICharactersViewModelController {
     
     let model: CharactersModel?
     var charactersViewModel: [CharactersListViewModel] = []
+    
+    var charactersCount: Int {
+        return charactersViewModel.count
+    }
     
     init(requestSender: IRequestSender, requestFactory: IRequestFactory, model: CharactersModel?) {
         self.requestSender = requestSender
@@ -50,5 +56,12 @@ class CharactersViewModelController : ICharactersViewModelController {
                 }
             }
         }
+    }
+    
+    func viewModel(at indexPath: IndexPath) -> CharactersListViewModel? {
+        if indexPath.row < charactersViewModel.count {
+            return charactersViewModel[indexPath.row]
+        }
+        return nil
     }
 }
