@@ -9,7 +9,8 @@ import UIKit
 
 protocol IRouter {
     func initialViewController()
-    func presentCharacters(model: CharactersModel?)
+    func presentCharacters(urls: [String])
+    func presentWorld(url: String)
 }
 
 struct Router: IRouter {
@@ -22,9 +23,15 @@ struct Router: IRouter {
         navigationController.viewControllers = [filmsListViewController]
     }
     
-    func presentCharacters(model: CharactersModel?) {
+    func presentCharacters(urls: [String]) {
         let charactersViewController = viewControllersFactory.createCharactersListModule(router: self,
-                                                                                         model: model)
+                                                                                         urls: urls)
         navigationController.pushViewController(charactersViewController, animated: true)
+    }
+    
+    func presentWorld(url: String) {
+        let worldViewController = viewControllersFactory.createWorldModule(url: url)
+        guard let previousVC = navigationController.viewControllers.last else { return }
+        previousVC.present(worldViewController, animated: true)
     }
 }

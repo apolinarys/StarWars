@@ -13,6 +13,7 @@ class CharactersListViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var viewModelController: ICharactersViewModelController?
+    var router: IRouter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,7 @@ class CharactersListViewController: UIViewController {
         tableView.register(UINib(nibName: "CharactersListTableViewCell", bundle: nil), forCellReuseIdentifier: "CharactersListTableViewCell")
         
         tableView.dataSource = self
+        tableView.delegate = self
         
         getCharacters()
     }
@@ -61,5 +63,14 @@ extension CharactersListViewController: UITableViewDataSource {
         }
         cell.cellModel = viewModelController?.viewModel(at: indexPath)
         return cell
+    }
+}
+
+extension CharactersListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let url = viewModelController?.getWorldModel(at: indexPath)
+        router?.presentWorld(url: url ?? "")
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Character" representedClassName="Character" syncable="YES" codeGenerationType="class">
+        <attribute name="birthYear" optional="YES" attributeType="String"/>
+        <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="films" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Film" inverseName="characters" inverseEntity="Film"/>
+        <relationship name="world" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="World" inverseName="character" inverseEntity="World"/>
+    </entity>
+    <entity name="Film" representedClassName="Film" syncable="YES" codeGenerationType="class">
+        <attribute name="attribute" optional="YES"/>
+        <attribute name="attribute1" optional="YES"/>
+        <attribute name="attribute2" optional="YES"/>
+        <attribute name="director" optional="YES" attributeType="String"/>
+        <attribute name="episodeId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="producer" optional="YES" attributeType="String"/>
+        <attribute name="releaseDate" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="films" inverseEntity="Character"/>
+    </entity>
+    <entity name="World" representedClassName="World" syncable="YES" codeGenerationType="class">
+        <attribute name="climate" optional="YES" attributeType="String"/>
+        <attribute name="diameter" optional="YES" attributeType="String"/>
+        <attribute name="gravity" optional="YES" attributeType="String"/>
+        <attribute name="land" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="population" optional="YES" attributeType="String"/>
+        <relationship name="character" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="world" inverseEntity="Character"/>
+    </entity>
+</model>

@@ -7,20 +7,20 @@
 
 import Foundation
 
-protocol ICharacterViewModelController {
-    
+protocol IWorldViewModelController {
+    func getWorldModel(_ success: ((WorldViewModel) -> Void)?, failure: ((String) -> Void)?)
 }
 
-struct WorldViewModelController {
+struct WorldViewModelController: IWorldViewModelController {
     
-    private let model: WorldModel
-    private let requestSender: IRequestSender
-    private let requestFactory: IRequestFactory
+    let url: String
+    let requestSender: IRequestSender
+    let requestFactory: IRequestFactory
     
-    func getWorldsInformation(_ success: ((WorldViewModel) -> Void)?, failure: ((String) -> Void)?) {
+    func getWorldModel(_ success: ((WorldViewModel) -> Void)?, failure: ((String) -> Void)?) {
         Task(priority: .userInitiated) {
             do {
-                guard let worldModel = try await requestSender.send(requestConfig: requestFactory.worldConfig(url: model.url)) else { return }
+                guard let worldModel = try await requestSender.send(requestConfig: requestFactory.worldConfig(url: url)) else { return }
                 DispatchQueue.main.async {
                     success?(worldModel)
                 }

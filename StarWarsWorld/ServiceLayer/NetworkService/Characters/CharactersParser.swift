@@ -9,7 +9,7 @@ import Foundation
 
 struct CharactersParser: IParser {
     
-    typealias Model = CharactersListViewModel
+    typealias Model = CharactersModel
     
     func parse(data: Data) -> Model? {
         let decoder = JSONDecoder()
@@ -19,9 +19,10 @@ struct CharactersParser: IParser {
         do {
             let decodedData = try decoder.decode(CharactersResponseModel.self, from: data)
             
-            var character = CharactersListViewModel(name: decodedData.name,
-                                                     gender: decodedData.gender,
-                                                     birthYear: decodedData.birthYear)
+            let character = CharactersModel(name: decodedData.name,
+                                            gender: decodedData.gender,
+                                            birthYear: decodedData.birthYear,
+                                            homeworld: decodedData.homeworld)
             
             return character
         } catch {

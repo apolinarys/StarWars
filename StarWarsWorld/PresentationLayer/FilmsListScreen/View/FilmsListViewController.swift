@@ -68,7 +68,9 @@ extension FilmsListViewController: UITableViewDataSource {
 
 extension FilmsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = viewModelController?.createCharactersModel(at: indexPath)
-        router?.presentCharacters(model: model)
+        let urls = viewModelController?.createCharactersModel(at: indexPath)
+        router?.presentCharacters(urls: urls ?? [])
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

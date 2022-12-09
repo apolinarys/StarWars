@@ -9,30 +9,40 @@ import UIKit
 
 protocol IViewControllersFactory {
     func createFilmsModule(router: IRouter) -> UIViewController
-    func createCharactersListModule(router: IRouter, model: CharactersModel?) -> UIViewController
+    func createCharactersListModule(router: IRouter, urls: [String]) -> UIViewController
+    func createWorldModule(url: String) -> UIViewController
 }
 
 struct ViewControllersFactory: IViewControllersFactory {
     
+    let requestSender = RequestSender()
+    let requestFactory = RequestsFactory()
+    
     func createFilmsModule(router: IRouter) -> UIViewController {
-        let requestSender = RequestSender()
-        let requestsFactory = RequestsFactory()
         let viewModel = FilmsListViewModelController(requestSender: requestSender,
-                                                     requestFactory: requestsFactory)
+                                                     requestFactory: requestFactory)
         let view = FilmsListViewController()
         view.router = router
         view.viewModelController = viewModel
         return view
     }
     
-    func createCharactersListModule(router: IRouter, model: CharactersModel?) -> UIViewController {
-        let requestSender = RequestSender()
-        let requestFactory = RequestsFactory()
+    func createCharactersListModule(router: IRouter, urls: [String]) -> UIViewController {
         let viewModel = CharactersViewModelController(requestSender: requestSender,
                                                       requestFactory: requestFactory,
-                                                      model: model)
+                                                      urls: urls)
         let view = CharactersListViewController()
         view.viewModelController = viewModel
+        view.router = router
+        return view
+    }
+    
+    func createWorldModule(url: String) -> UIViewController {
+        let viewModel = WorldViewModelController(url: url,
+                                                 requestSender: requestSender,
+                                                 requestFactory: requestFactory)
+        let view = WorldViewController()
+        view.viewModel = viewModel
         return view
     }
 }

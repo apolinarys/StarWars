@@ -16,6 +16,10 @@
 		FA040A112943799500C76868 /* WorldRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A102943799500C76868 /* WorldRequest.swift */; };
 		FA040A13294379C000C76868 /* WorldParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A12294379C000C76868 /* WorldParser.swift */; };
 		FA040A1629437A5C00C76868 /* WorldViewModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A1529437A5C00C76868 /* WorldViewModelController.swift */; };
+		FA040A18294394BC00C76868 /* ErrorAlertsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A17294394BC00C76868 /* ErrorAlertsFactory.swift */; };
+		FA040A1A2943A02600C76868 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A192943A02600C76868 /* CoreDataStack.swift */; };
+		FA040A1D2943A05400C76868 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA040A1B2943A05400C76868 /* CoreDataModel.xcdatamodeld */; };
+		FA040A232943A2B500C76868 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A222943A2B500C76868 /* CoreDataService.swift */; };
 		FA85277A29409F8B004560D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85277929409F8B004560D5 /* AppDelegate.swift */; };
 		FA85278129409F8B004560D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA85277F29409F8B004560D5 /* Main.storyboard */; };
 		FA85278329409F8D004560D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA85278229409F8D004560D5 /* Assets.xcassets */; };
@@ -59,6 +63,10 @@
 		FA040A102943799500C76868 /* WorldRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldRequest.swift; sourceTree = "<group>"; };
 		FA040A12294379C000C76868 /* WorldParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldParser.swift; sourceTree = "<group>"; };
 		FA040A1529437A5C00C76868 /* WorldViewModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldViewModelController.swift; sourceTree = "<group>"; };
+		FA040A17294394BC00C76868 /* ErrorAlertsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertsFactory.swift; sourceTree = "<group>"; };
+		FA040A192943A02600C76868 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		FA040A1C2943A05400C76868 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		FA040A222943A2B500C76868 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		FA85277629409F8B004560D5 /* StarWarsWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWarsWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA85277929409F8B004560D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA85278029409F8B004560D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -151,6 +159,44 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		FA040A1E2943A26200C76868 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				FA040A192943A02600C76868 /* CoreDataStack.swift */,
+				FA040A1B2943A05400C76868 /* CoreDataModel.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		FA040A1F2943A27400C76868 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA85279D2940B0FB004560D5 /* RequestConfig.swift */,
+				FA85279F2940B118004560D5 /* NetworkError.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FA040A202943A29900C76868 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				FA040A0D2943787300C76868 /* World */,
+				FAAB3F322943316A00A4999E /* Characters */,
+				FA8527A82940B3CD004560D5 /* RequestSender */,
+				FA8527AA2940B3E3004560D5 /* Films */,
+				FA8527AB2940B403004560D5 /* Factories */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		FA040A212943A2A400C76868 /* CoreDataService */ = {
+			isa = PBXGroup;
+			children = (
+				FA040A222943A2B500C76868 /* CoreDataService.swift */,
+			);
+			path = CoreDataService;
+			sourceTree = "<group>";
+		};
 		FA85276D29409F8B004560D5 = {
 			isa = PBXGroup;
 			children = (
@@ -173,9 +219,10 @@
 				FA88DA342942227300C17145 /* ViewControllersFactory.swift */,
 				FAAB3F2C29432F2F00A4999E /* Router.swift */,
 				FA85277929409F8B004560D5 /* AppDelegate.swift */,
+				FA040A17294394BC00C76868 /* ErrorAlertsFactory.swift */,
 				FA8527AE2940B8AA004560D5 /* PresentationLayer */,
-				FA85279C2940B0ED004560D5 /* CoreLayer */,
 				FA85278D2940A41C004560D5 /* ServiceLayer */,
+				FA85279C2940B0ED004560D5 /* CoreLayer */,
 				FA8527A12940B121004560D5 /* Protocols */,
 				FA85277F29409F8B004560D5 /* Main.storyboard */,
 				FA85278229409F8D004560D5 /* Assets.xcassets */,
@@ -189,11 +236,8 @@
 		FA85278D2940A41C004560D5 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				FA040A0D2943787300C76868 /* World */,
-				FAAB3F322943316A00A4999E /* Characters */,
-				FA8527A82940B3CD004560D5 /* RequestSender */,
-				FA8527AA2940B3E3004560D5 /* Films */,
-				FA8527AB2940B403004560D5 /* Factories */,
+				FA040A212943A2A400C76868 /* CoreDataService */,
+				FA040A202943A29900C76868 /* NetworkService */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -201,8 +245,8 @@
 		FA85279C2940B0ED004560D5 /* CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
-				FA85279D2940B0FB004560D5 /* RequestConfig.swift */,
-				FA85279F2940B118004560D5 /* NetworkError.swift */,
+				FA040A1F2943A27400C76868 /* Models */,
+				FA040A1E2943A26200C76868 /* CoreData */,
 			);
 			path = CoreLayer;
 			sourceTree = "<group>";
@@ -420,6 +464,7 @@
 				FA040A112943799500C76868 /* WorldRequest.swift in Sources */,
 				FA8527B42940B9D9004560D5 /* FilmsListViewModelController.swift in Sources */,
 				FA85279B2940B091004560D5 /* RequestsFactory.swift in Sources */,
+				FA040A18294394BC00C76868 /* ErrorAlertsFactory.swift in Sources */,
 				FA040A0C294377CE00C76868 /* WorldViewModel.swift in Sources */,
 				FAAB3F392943330500A4999E /* CharactersParser.swift in Sources */,
 				FA040A0529436EEE00C76868 /* WorldViewController.swift in Sources */,
@@ -428,9 +473,11 @@
 				FA8527B72940C5B3004560D5 /* Logger.swift in Sources */,
 				FAAB3F242943273D00A4999E /* CharactersListViewController.swift in Sources */,
 				FA040A0F2943788400C76868 /* WorldResponseModel.swift in Sources */,
+				FA040A232943A2B500C76868 /* CoreDataService.swift in Sources */,
 				FA85279E2940B0FB004560D5 /* RequestConfig.swift in Sources */,
 				FA040A13294379C000C76868 /* WorldParser.swift in Sources */,
 				FA040A1629437A5C00C76868 /* WorldViewModelController.swift in Sources */,
+				FA040A1D2943A05400C76868 /* CoreDataModel.xcdatamodeld in Sources */,
 				FA8527992940B041004560D5 /* FilmsParser.swift in Sources */,
 				FA88DA352942227300C17145 /* ViewControllersFactory.swift in Sources */,
 				FAAB3F2D29432F2F00A4999E /* Router.swift in Sources */,
@@ -441,6 +488,7 @@
 				FAAB3F2829432A7D00A4999E /* CharactersListTableViewCell.swift in Sources */,
 				FAAB3F372943326C00A4999E /* CharactersRequest.swift in Sources */,
 				FA040A012943354C00C76868 /* CharactersViewModelController.swift in Sources */,
+				FA040A1A2943A02600C76868 /* CoreDataStack.swift in Sources */,
 				FA88DA322942212500C17145 /* FilmsListViewController.swift in Sources */,
 				FA85278F2940A435004560D5 /* FilmsResponseModel.swift in Sources */,
 				FA8527A72940B23F004560D5 /* FilmModel.swift in Sources */,
@@ -668,6 +716,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FA040A1B2943A05400C76868 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FA040A1C2943A05400C76868 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = FA040A1C2943A05400C76868 /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FA85276E29409F8B004560D5 /* Project object */;
 }

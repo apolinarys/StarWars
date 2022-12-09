@@ -8,5 +8,8 @@
 import Foundation
 
 struct CharactersModel {
-    let urls: [String]
+    let name: String
+    let gender: String
+    let birthYear: String
+    let homeworld: String
 }

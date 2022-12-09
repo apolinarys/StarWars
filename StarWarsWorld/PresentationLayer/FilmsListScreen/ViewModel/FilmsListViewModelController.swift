@@ -11,7 +11,7 @@ protocol IFilmsListViewModelController {
     var filmsCount: Int { get }
     func loadFilms(_ success: (() -> Void)?, failure: ((String) -> Void)?)
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel?
-    func createCharactersModel(at indexPath: IndexPath) -> CharactersModel
+    func createCharactersModel(at indexPath: IndexPath) -> [String]
 }
 
 class FilmsListViewModelController: IFilmsListViewModelController {
@@ -53,8 +53,8 @@ class FilmsListViewModelController: IFilmsListViewModelController {
         }
     }
     
-    func createCharactersModel(at indexPath: IndexPath) -> CharactersModel {
-        return CharactersModel(urls: filmsModel[indexPath.row].characters)
+    func createCharactersModel(at indexPath: IndexPath) -> [String] {
+        return filmsModel[indexPath.row].characters
     }
     
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel? {

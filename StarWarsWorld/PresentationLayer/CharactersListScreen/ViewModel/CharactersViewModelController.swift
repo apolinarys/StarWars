@@ -11,6 +11,7 @@ protocol ICharactersViewModelController {
     func loadCharacters(_ success: (() -> Void)?, failure: ((String) -> Void)?)
     var charactersCount: Int { get }
     func viewModel(at indexPath: IndexPath) -> CharactersListViewModel?
+    func getWorldModel(at indexPath: IndexPath) -> String
 }
 
 class CharactersViewModelController : ICharactersViewModelController {
@@ -18,30 +19,25 @@ class CharactersViewModelController : ICharactersViewModelController {
     private let requestSender: IRequestSender
     private let requestFactory: IRequestFactory
     
-    private let model: CharactersModel?
-    var charactersViewModel: [CharactersListViewModel] = []
+    private let urls: [String]
+    var charactersModel: [CharactersModel] = []
     
     var charactersCount: Int {
-        return charactersViewModel.count
+        return charactersModel.count
     }
     
-    init(requestSender: IRequestSender, requestFactory: IRequestFactory, model: CharactersModel?) {
+    init(requestSender: IRequestSender, requestFactory: IRequestFactory, urls: [String]) {
         self.requestSender = requestSender
         self.requestFactory = requestFactory
-        self.model = model
+        self.urls = urls
     }
     
     func loadCharacters(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
-        guard let model = model else { return }
-        for url in model.urls {
+        for url in urls {
             Task(priority: .userInitiated) {
                 do {
-                    guard let charactersModel = try await requestSender.send(requestConfig: requestFactory.characterConfig(url: url)) else { return }
-                    charactersViewModel.append(
-                        CharactersListViewModel(name: charactersModel.name,
-                                                gender: charactersModel.gender,
-                                                birthYear: charactersModel.birthYear)
-                    )
+                    guard let character = try await requestSender.send(requestConfig: requestFactory.characterConfig(url: url)) else { return }
+                    charactersModel.append(character)
                     DispatchQueue.main.async {
                         success?()
                     }
@@ -59,9 +55,16 @@ class CharactersViewModelController : ICharactersViewModelController {
     }
     
     func viewModel(at indexPath: IndexPath) -> CharactersListViewModel? {
-        if indexPath.row < charactersViewModel.count {
-            return charactersViewModel[indexPath.row]
+        if indexPath.row < charactersModel.count {
+            let character = charactersModel[indexPath.row]
+            return CharactersListViewModel(name: character.name,
+                                           gender: character.gender,
+                                           birthYear: character.birthYear)
         }
         return nil
+    }
+    
+    func getWorldModel(at indexPath: IndexPath) -> String {
+        return charactersModel[indexPath.row].homeworld
     }
 }
