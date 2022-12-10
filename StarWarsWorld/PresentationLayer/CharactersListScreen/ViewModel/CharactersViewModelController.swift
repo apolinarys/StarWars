@@ -18,6 +18,7 @@ class CharactersViewModelController : ICharactersViewModelController {
     
     private let requestSender: IRequestSender
     private let requestFactory: IRequestFactory
+    private let coreDataService: ICoreDataService
     
     private let urls: [String]
     var charactersModel: [CharactersModel] = []
@@ -26,21 +27,35 @@ class CharactersViewModelController : ICharactersViewModelController {
         return charactersModel.count
     }
     
-    init(requestSender: IRequestSender, requestFactory: IRequestFactory, urls: [String]) {
+    init(requestSender: IRequestSender, requestFactory: IRequestFactory, urls: [String], coreDataService: ICoreDataService) {
         self.requestSender = requestSender
         self.requestFactory = requestFactory
         self.urls = urls
+        self.coreDataService = coreDataService
     }
     
     func loadCharacters(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
+        loadWithCoreData()
+        if charactersModel.isEmpty {
+            loadWithURLSession(success, failure: failure)
+        }
+    }
+    
+    private func loadWithCoreData() {
+       charactersModel = coreDataService.getCharacters(urls: urls)
+    }
+    
+    private func loadWithURLSession(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
         for url in urls {
             Task(priority: .userInitiated) {
                 do {
-                    guard let character = try await requestSender.send(requestConfig: requestFactory.characterConfig(url: url)) else { return }
+                    guard var character = try await requestSender.send(requestConfig: requestFactory.characterConfig(url: url)) else { return }
+                    character.link = url
                     charactersModel.append(character)
                     DispatchQueue.main.async {
                         success?()
                     }
+                    coreDataService.saveCharacters(characters: charactersModel)
                 } catch NetworkError.unknownError {
                     DispatchQueue.main.async {
                         failure?("Request timeout")

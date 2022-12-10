@@ -3,6 +3,7 @@
     <entity name="Character" representedClassName="Character" syncable="YES" codeGenerationType="class">
         <attribute name="birthYear" optional="YES" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="String"/>
+        <attribute name="link" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="worldLink" optional="YES" attributeType="String"/>
         <relationship name="films" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Film" inverseName="characters" inverseEntity="Film"/>

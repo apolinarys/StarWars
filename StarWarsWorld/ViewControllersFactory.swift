@@ -31,9 +31,11 @@ struct ViewControllersFactory: IViewControllersFactory {
     }
     
     func createCharactersListModule(router: IRouter, urls: [String]) -> UIViewController {
+        let coreDataService = CoreDataService(coreDataStack: coreDataStack)
         let viewModel = CharactersViewModelController(requestSender: requestSender,
                                                       requestFactory: requestFactory,
-                                                      urls: urls)
+                                                      urls: urls,
+                                                      coreDataService: coreDataService)
         let view = CharactersListViewController()
         view.viewModelController = viewModel
         view.router = router
