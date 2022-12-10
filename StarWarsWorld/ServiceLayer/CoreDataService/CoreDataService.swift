@@ -7,28 +7,47 @@
 
 import CoreData
 
+/// Сервис работы с хранилищем.
 protocol ICoreDataService {
+    
+    // MARK: - Methods
+    
+    /// Возвращает модели фильмов
     func getFilms() -> [FilmModel]
+    
+    /// Сохраняет модели фильмов
     func saveFilms(films: [FilmModel])
-    func getCharacters(urls: [String]) -> [CharactersModel]
-    func saveCharacters(characters: [CharactersModel])
+    
+    /// Возвращает модели персонажей
+    func getCharacters(urls: [String]) -> [CharacterModel]
+    
+    /// Сохраняет модели персонажей
+    func saveCharacters(characters: [CharacterModel])
+    
+    /// Возвращает модель мира
     func getWorld(link: String) -> WorldModel?
+    
+    /// Сохраняет модель мира
     func saveWorld(world: WorldModel)
 }
 
 class CoreDataService: ICoreDataService {
     
+    // MARK: - Dependencies
+    
     let coreDataStack: ICoreDataStack
+    
+    // MARK: - Initialization
     
     init(coreDataStack: ICoreDataStack) {
         self.coreDataStack = coreDataStack
     }
     
-    var films = [Film]()
+    // MARK: - ICoreDataService
     
     func getFilms() -> [FilmModel] {
         let fetchRequest: NSFetchRequest<Film> = Film.fetchRequest()
-        films = coreDataStack.fetch(fetchRequest: fetchRequest) ?? []
+        let films = coreDataStack.fetch(fetchRequest: fetchRequest) ?? []
         var output: [FilmModel] = []
         films.forEach { film in
             guard let characters = film.links?.allObjects.compactMap({ character in
@@ -64,16 +83,16 @@ class CoreDataService: ICoreDataService {
         }
     }
     
-    func getCharacters(urls: [String]) -> [CharactersModel] {
+    func getCharacters(urls: [String]) -> [CharacterModel] {
         let characters = findCharacters(urls: urls)
-        let output: [CharactersModel] = characters.compactMap { character in
+        let output: [CharacterModel] = characters.compactMap { character in
             guard let name = character.name, let gender = character.gender, let birthYear = character.birthYear, let world = character.worldLink else { return nil }
-            return CharactersModel(name: name, gender: gender, birthYear: birthYear, homeworld: world)
+            return CharacterModel(name: name, gender: gender, birthYear: birthYear, homeworld: world)
         }
         return output
     }
     
-    func saveCharacters(characters: [CharactersModel]) {
+    func saveCharacters(characters: [CharacterModel]) {
         characters.forEach { character in
             coreDataStack.performSave { context in
                 let savingCharacter = Character(context: context)
@@ -116,6 +135,8 @@ class CoreDataService: ICoreDataService {
             savingWorld.land = world.landType
         }
     }
+    
+    // MARK: - Private Methods
     
     private func findWorld(link: String) -> World? {
         let fetchRequest: NSFetchRequest<World> = World.fetchRequest()

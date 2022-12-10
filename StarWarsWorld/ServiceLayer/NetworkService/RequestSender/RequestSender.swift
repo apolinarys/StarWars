@@ -42,24 +42,5 @@ struct RequestSender: IRequestSender {
         }
         
         return parsedModel
-        
-//        let task = session.dataTask(with: urlRequest) { data, _, error in
-//            guard error == nil else {
-//                if networkCheckService.isConnectedToNetwork() {
-//                    return completionHandler(Result.failure(NetworkError.unknownError))
-//                }
-//
-//                return completionHandler(Result.failure(NetworkError.noConnection))
-//            }
-//
-//            guard let data = data, let parsedModel: Parser.Model = config.parser.parse(data: data) else {
-//                completionHandler(Result.failure(NetworkError.badData))
-//                return
-//            }
-//
-//            completionHandler(Result.success(parsedModel))
-//        }
-//
-//        task.resume()
     }
 }

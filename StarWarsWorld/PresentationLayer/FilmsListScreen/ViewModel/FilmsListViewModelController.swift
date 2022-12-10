@@ -7,15 +7,24 @@
 
 import Foundation
 
+///Вью модель экрана фильмов
 protocol IFilmsListViewModelController {
+    
+    // MARK: - Properties
+    
     var filmsCount: Int { get }
+    
+    // MARK: - Methods
+
     func loadFilms(_ success: (() -> Void)?, failure: ((String) -> Void)?)
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel?
     func createCharactersModel(at indexPath: IndexPath) -> [String]
     func searchFilm(text: String)
 }
 
-class FilmsListViewModelController: IFilmsListViewModelController {
+final class FilmsListViewModelController: IFilmsListViewModelController {
+    
+    // MARK: - Dependencies
     
     private var filmsViewModelList: [FilmsListViewModel] = []
     private let requestSender: IRequestSender
@@ -23,11 +32,15 @@ class FilmsListViewModelController: IFilmsListViewModelController {
     private var filmsModel: [FilmModel] = []
     private let coreDataService: ICoreDataService
     
+    // MARK: - Initializer
+    
     init(requestSender: IRequestSender, requestFactory: IRequestFactory, coreDataService: ICoreDataService) {
         self.requestSender = requestSender
         self.requestFactory = requestFactory
         self.coreDataService = coreDataService
     }
+    
+    // MARK: - IFilmsListViewModelController
     
     var filmsCount: Int {
         return filmsViewModelList.count
@@ -41,6 +54,8 @@ class FilmsListViewModelController: IFilmsListViewModelController {
         }
         loadWithURLSession(success, failure: failure)
     }
+    
+    // MARK: - Private Methods
     
     private func loadWithCoreData() {
         filmsModel = coreDataService.getFilms()

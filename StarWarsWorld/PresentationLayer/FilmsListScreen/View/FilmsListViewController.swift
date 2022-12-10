@@ -7,15 +7,20 @@
 
 import UIKit
 
-class FilmsListViewController: UIViewController {
+final class FilmsListViewController: UIViewController {
+    
+    // MARK: - Properties
     
     var viewModelController: IFilmsListViewModelController?
     var router: IRouter?
+    var errorAlertFactory: ErrorAlertsFactory?
     
+    // MARK: - Private Properties
     
-    @IBOutlet weak var searchField: UITextField!
+    @IBOutlet private weak var searchField: UITextField!
+    @IBOutlet private weak var tableView: UITableView!
     
-    @IBOutlet weak var tableView: UITableView!
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,34 +33,26 @@ class FilmsListViewController: UIViewController {
         
         getFilms()
     }
-
     
-    private func showErrorAlert(message: String) {
-        let alertController = UIAlertController(title: message, message: nil, preferredStyle: UIAlertController.Style.alert)
-        let alertAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel)
-        alertController.addAction(alertAction)
-        
-        let retryAction = UIAlertAction(title: "Retry", style: UIAlertAction.Style.default) {[weak self] _  in
-            self?.getFilms()
-        }
-        
-        alertController.addAction(retryAction)
-        
-        self.present(alertController, animated: true)
-    }
+    // MARK: - Private Methods
     
     private func getFilms() {
         viewModelController?.loadFilms({ [weak self] in
             self?.tableView.reloadData()
         }, failure: { [weak self] message in
-            self?.showErrorAlert(message: message)
+            guard let alertController = self?.errorAlertFactory?.createErrorAlert(message: message, completion: {
+                self?.getFilms()
+            }) else { return }
+            self?.present(alertController, animated: true)
         })
     }
     
-    @IBAction func searchButtonPressed(_ sender: UIButton) {
+    @IBAction private func searchButtonPressed(_ sender: UIButton) {
         searchField.endEditing(true)
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension FilmsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,14 +70,19 @@ extension FilmsListViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension FilmsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let urls = viewModelController?.createCharactersModel(at: indexPath)
-        router?.presentCharacters(urls: urls ?? [])
+        router?.presentCharacters(urls: urls ?? [],
+                                  film: viewModelController?.viewModel(at: indexPath)?.title ?? "")
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+// MARK: - UITextFieldDelegate
 
 extension FilmsListViewController: UITextFieldDelegate {
     

@@ -7,16 +7,24 @@
 
 import Foundation
 
+/// Вью модель экрана мира
 protocol IWorldViewModelController {
+    
+    // MARK: - Methods
+    
     func getWorldModel(_ success: ((WorldViewModel) -> Void)?, failure: ((String) -> Void)?)
 }
 
 struct WorldViewModelController: IWorldViewModelController {
     
+    // MARK: - Dependencies
+    
     let url: String
     let requestSender: IRequestSender
     let requestFactory: IRequestFactory
     let coreDataService: ICoreDataService
+    
+    // MARK: - IWorldViewModelController
     
     func getWorldModel(_ success: ((WorldViewModel) -> Void)?, failure: ((String) -> Void)?) {
         if let world = loadWithCoreData(link: url) {
@@ -25,6 +33,8 @@ struct WorldViewModelController: IWorldViewModelController {
             loadWithURLSession(success, failure: failure)
         }
     }
+    
+    // MARK: - Private Methods
     
     private func loadWithURLSession(_ success: ((WorldViewModel) -> Void)?, failure: ((String) -> Void)?) {
         Task(priority: .userInitiated) {

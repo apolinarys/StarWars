@@ -9,7 +9,7 @@ import UIKit
 
 protocol IRouter {
     func initialViewController()
-    func presentCharacters(urls: [String])
+    func presentCharacters(urls: [String], film: String)
     func presentWorld(url: String)
 }
 
@@ -23,9 +23,10 @@ struct Router: IRouter {
         navigationController.viewControllers = [filmsListViewController]
     }
     
-    func presentCharacters(urls: [String]) {
+    func presentCharacters(urls: [String], film: String) {
         let charactersViewController = viewControllersFactory.createCharactersListModule(router: self,
-                                                                                         urls: urls)
+                                                                                         urls: urls,
+                                                                                         film: film)
         navigationController.pushViewController(charactersViewController, animated: true)
     }
     

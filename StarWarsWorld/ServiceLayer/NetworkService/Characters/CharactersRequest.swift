@@ -9,7 +9,11 @@ import Foundation
 
 struct CharactersRequest: IRequest {
     
+    // MARK: - Dependencies
+    
     var urlString: String
+    
+    // MARK: - IRequest
     
     var urlRequest: URLRequest? {
         guard let url = URL(string: urlString) else { return nil }

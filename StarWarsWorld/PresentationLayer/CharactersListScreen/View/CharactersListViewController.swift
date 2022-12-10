@@ -7,16 +7,25 @@
 
 import UIKit
 
-class CharactersListViewController: UIViewController {
+final class CharactersListViewController: UIViewController {
+    
+    // MARK: - Private Properties
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var searchBar: UISearchBar!
+    
+    // MARK: - Dependencies
     
     var viewModelController: ICharactersViewModelController?
     var router: IRouter?
+    var errorAlertFactory: ErrorAlertsFactory?
+    
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = viewModelController?.filmName
         
         tableView.register(UINib(nibName: "CharactersListTableViewCell", bundle: nil), forCellReuseIdentifier: "CharactersListTableViewCell")
         
@@ -25,30 +34,22 @@ class CharactersListViewController: UIViewController {
         
         getCharacters()
     }
-
     
-    private func showErrorAlert(message: String) {
-        let alertController = UIAlertController(title: message, message: nil, preferredStyle: UIAlertController.Style.alert)
-        let alertAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.cancel)
-        alertController.addAction(alertAction)
-        
-        let retryAction = UIAlertAction(title: "Retry", style: UIAlertAction.Style.default) {[weak self] _  in
-            self?.getCharacters()
-        }
-        
-        alertController.addAction(retryAction)
-        
-        self.present(alertController, animated: true)
-    }
+    // MARK: - Private Methods
     
     private func getCharacters() {
         viewModelController?.loadCharacters({ [weak self] in
             self?.tableView.reloadData()
         }, failure: { [weak self] message in
-            self?.showErrorAlert(message: message)
+            guard let alertController = self?.errorAlertFactory?.createErrorAlert(message: message, completion: {
+                self?.getCharacters()
+            }) else { return }
+            self?.present(alertController, animated: true)
         })
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension CharactersListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,6 +66,8 @@ extension CharactersListViewController: UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension CharactersListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

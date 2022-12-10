@@ -9,7 +9,7 @@ import UIKit
 
 protocol IViewControllersFactory {
     func createFilmsModule(router: IRouter) -> UIViewController
-    func createCharactersListModule(router: IRouter, urls: [String]) -> UIViewController
+    func createCharactersListModule(router: IRouter, urls: [String], film: String) -> UIViewController
     func createWorldModule(url: String) -> UIViewController
 }
 
@@ -30,12 +30,13 @@ struct ViewControllersFactory: IViewControllersFactory {
         return view
     }
     
-    func createCharactersListModule(router: IRouter, urls: [String]) -> UIViewController {
+    func createCharactersListModule(router: IRouter, urls: [String], film: String) -> UIViewController {
         let coreDataService = CoreDataService(coreDataStack: coreDataStack)
         let viewModel = CharactersViewModelController(requestSender: requestSender,
                                                       requestFactory: requestFactory,
                                                       urls: urls,
-                                                      coreDataService: coreDataService)
+                                                      coreDataService: coreDataService,
+                                                      filmName: film)
         let view = CharactersListViewController()
         view.viewModelController = viewModel
         view.router = router

@@ -7,24 +7,30 @@
 
 import UIKit
 
-class WorldViewController: UIViewController {
+final class WorldViewController: UIViewController {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var populationLabel: UILabel!
-    @IBOutlet weak var landLabel: UILabel!
-    @IBOutlet weak var gravitationLabel: UILabel!
-    @IBOutlet weak var climateLabel: UILabel!
-    @IBOutlet weak var diameterLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var populationLabel: UILabel!
+    @IBOutlet private weak var landLabel: UILabel!
+    @IBOutlet private weak var gravitationLabel: UILabel!
+    @IBOutlet private weak var climateLabel: UILabel!
+    @IBOutlet private weak var diameterLabel: UILabel!
+    
+    // MARK: - Dependencies
     
     var viewModel: IWorldViewModelController?
     var errorAlertFactory: IErrorAlertsFactory?
+    
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getWorldModel()
     }
     
-    func getWorldModel () {
+    // MARK: - Private Methods
+    
+    private func getWorldModel () {
         viewModel?.getWorldModel({ [weak self] model in
             self?.applyViewModel(model: model)
         }, failure: { [weak self] message in
@@ -36,11 +42,11 @@ class WorldViewController: UIViewController {
     }
     
     private func applyViewModel(model: WorldViewModel) {
-        nameLabel.text = model.name
-        populationLabel.text = model.population
-        gravitationLabel.text = model.gravity
-        climateLabel.text = model.climate
-        landLabel.text = model.landType
-        diameterLabel.text = model.diameter
+        nameLabel.text = "Name: " + model.name
+        populationLabel.text = "Population: " + model.population
+        gravitationLabel.text = "Gravity: " + model.gravity
+        climateLabel.text = "Climate: " + model.climate
+        landLabel.text = "Land: " + model.landType
+        diameterLabel.text = "Diameter: " + model.diameter
     }
 }

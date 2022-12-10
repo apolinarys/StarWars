@@ -7,7 +7,10 @@
 
 import Foundation
 
+/// Парсер мира
 struct WorldParser: IParser {
+    
+    // MARK: - IParser
     
     typealias Model = WorldViewModel
     

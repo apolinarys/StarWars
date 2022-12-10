@@ -15,8 +15,10 @@ protocol IRequestFactory {
     /// Возвращает запрос фильмов.
     func filmsConfig() -> RequestConfig<FilmsParser>
     
+    /// Возвращает запрос персонажей
     func characterConfig(url: String) -> RequestConfig<CharactersParser>
     
+    /// Возвращает запрос мира
     func worldConfig(url: String) -> RequestConfig<WorldParser>
 }
 

@@ -11,7 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CharactersListViewController" customModule="StarWarsWorld" customModuleProvider="target">
             <connections>
-                <outlet property="searchBar" destination="dSj-4i-VI1" id="vJ5-CC-yJn"/>
                 <outlet property="tableView" destination="VRd-4s-YYE" id="Zan-2o-cSs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,28 +20,18 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="dSj-4i-VI1">
-                    <rect key="frame" x="0.0" y="59" width="393" height="56"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="dBz-q8-teB"/>
-                    </connections>
-                </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="VRd-4s-YYE">
-                    <rect key="frame" x="0.0" y="115" width="393" height="703"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VRd-4s-YYE" secondAttribute="trailing" id="GlG-Ab-Tdc"/>
-                <constraint firstItem="VRd-4s-YYE" firstAttribute="top" secondItem="dSj-4i-VI1" secondAttribute="bottom" id="KLb-SI-Vji"/>
-                <constraint firstItem="dSj-4i-VI1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PEb-HJ-K1R"/>
-                <constraint firstItem="dSj-4i-VI1" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="R5q-QS-ybm"/>
-                <constraint firstItem="dSj-4i-VI1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dZx-ur-deo"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="VRd-4s-YYE" secondAttribute="bottom" id="nPb-2v-gKs"/>
-                <constraint firstItem="VRd-4s-YYE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="owh-fo-zN4"/>
+                <constraint firstItem="VRd-4s-YYE" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="H6r-p1-XYT"/>
+                <constraint firstItem="VRd-4s-YYE" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ZXb-bu-Sbr"/>
+                <constraint firstItem="VRd-4s-YYE" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="e8x-66-Z4J"/>
+                <constraint firstItem="VRd-4s-YYE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="eX0-GY-gyT"/>
             </constraints>
             <point key="canvasLocation" x="37" y="20"/>
         </view>

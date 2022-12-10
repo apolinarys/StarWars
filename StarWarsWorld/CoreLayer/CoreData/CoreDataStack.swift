@@ -7,17 +7,22 @@
 
 import CoreData
 
+private extension String {
+    static let coreDataStackContainerName = "CoreDataModel"
+}
+
 protocol ICoreDataStack {
+    
+    // MARK: - Methods
+    
     func fetch<T>(fetchRequest: NSFetchRequest<T>) -> [T]?
     func performSave(_ block: @escaping (NSManagedObjectContext) -> Void)
     func getContext() -> NSManagedObjectContext
 }
 
-private extension String {
-    static let coreDataStackContainerName = "CoreDataModel"
-}
-
 final class CoreDataStack: ICoreDataStack {
+    
+    // MARK: - Private Properties
     
     private lazy var container: NSPersistentContainer = {
         let container = NSPersistentContainer(name: String.coreDataStackContainerName)
@@ -28,6 +33,8 @@ final class CoreDataStack: ICoreDataStack {
         }
         return container
     }()
+    
+    // MARK: - ICoreDataStack
     
     func getContext() -> NSManagedObjectContext {
         container.viewContext
@@ -50,6 +57,8 @@ final class CoreDataStack: ICoreDataStack {
             }
         }
     }
+    
+    // MARK: - Private Methods
     
     private func performSave(in context: NSManagedObjectContext) throws {
         try context.save()

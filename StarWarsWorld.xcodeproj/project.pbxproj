@@ -45,7 +45,7 @@
 		FAAB3F252943273D00A4999E /* CharactersListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAAB3F232943273D00A4999E /* CharactersListViewController.xib */; };
 		FAAB3F2829432A7D00A4999E /* CharactersListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB3F2629432A7D00A4999E /* CharactersListTableViewCell.swift */; };
 		FAAB3F2929432A7D00A4999E /* CharactersListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAAB3F2729432A7D00A4999E /* CharactersListTableViewCell.xib */; };
-		FAAB3F2B29432D7300A4999E /* CharactersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB3F2A29432D7300A4999E /* CharactersModel.swift */; };
+		FAAB3F2B29432D7300A4999E /* CharacterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB3F2A29432D7300A4999E /* CharacterModel.swift */; };
 		FAAB3F2D29432F2F00A4999E /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB3F2C29432F2F00A4999E /* Router.swift */; };
 		FAAB3F312943311100A4999E /* CharactersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB3F302943311100A4999E /* CharactersListViewModel.swift */; };
 		FAAB3F342943318500A4999E /* CharactersResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB3F332943318500A4999E /* CharactersResponseModel.swift */; };
@@ -94,7 +94,7 @@
 		FAAB3F232943273D00A4999E /* CharactersListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharactersListViewController.xib; sourceTree = "<group>"; };
 		FAAB3F2629432A7D00A4999E /* CharactersListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListTableViewCell.swift; sourceTree = "<group>"; };
 		FAAB3F2729432A7D00A4999E /* CharactersListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharactersListTableViewCell.xib; sourceTree = "<group>"; };
-		FAAB3F2A29432D7300A4999E /* CharactersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersModel.swift; sourceTree = "<group>"; };
+		FAAB3F2A29432D7300A4999E /* CharacterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterModel.swift; sourceTree = "<group>"; };
 		FAAB3F2C29432F2F00A4999E /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		FAAB3F302943311100A4999E /* CharactersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewModel.swift; sourceTree = "<group>"; };
 		FAAB3F332943318500A4999E /* CharactersResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResponseModel.swift; sourceTree = "<group>"; };
@@ -197,6 +197,14 @@
 			path = CoreDataService;
 			sourceTree = "<group>";
 		};
+		FA040A2429451D1700C76868 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				FA040A17294394BC00C76868 /* ErrorAlertsFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
 		FA85276D29409F8B004560D5 = {
 			isa = PBXGroup;
 			children = (
@@ -219,7 +227,7 @@
 				FA88DA342942227300C17145 /* ViewControllersFactory.swift */,
 				FAAB3F2C29432F2F00A4999E /* Router.swift */,
 				FA85277929409F8B004560D5 /* AppDelegate.swift */,
-				FA040A17294394BC00C76868 /* ErrorAlertsFactory.swift */,
+				FA040A2429451D1700C76868 /* Factories */,
 				FA8527AE2940B8AA004560D5 /* PresentationLayer */,
 				FA85278D2940A41C004560D5 /* ServiceLayer */,
 				FA85279C2940B0ED004560D5 /* CoreLayer */,
@@ -357,7 +365,7 @@
 		FAAB3F2F294330C600A4999E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FAAB3F2A29432D7300A4999E /* CharactersModel.swift */,
+				FAAB3F2A29432D7300A4999E /* CharacterModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -468,7 +476,7 @@
 				FA040A0C294377CE00C76868 /* WorldViewModel.swift in Sources */,
 				FAAB3F392943330500A4999E /* CharactersParser.swift in Sources */,
 				FA040A0529436EEE00C76868 /* WorldViewController.swift in Sources */,
-				FAAB3F2B29432D7300A4999E /* CharactersModel.swift in Sources */,
+				FAAB3F2B29432D7300A4999E /* CharacterModel.swift in Sources */,
 				FA8527952940AFEA004560D5 /* RequestSender.swift in Sources */,
 				FA8527B72940C5B3004560D5 /* Logger.swift in Sources */,
 				FAAB3F242943273D00A4999E /* CharactersListViewController.swift in Sources */,

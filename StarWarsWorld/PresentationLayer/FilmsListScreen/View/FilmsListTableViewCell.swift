@@ -7,12 +7,9 @@
 
 import UIKit
 
-class FilmsListTableViewCell: UITableViewCell {
+final class FilmsListTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var directorLabel: UILabel!
-    @IBOutlet weak var producerLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    // MARK: - Properties
     
     var cellModel: FilmsListViewModel? {
         didSet {
@@ -20,9 +17,14 @@ class FilmsListTableViewCell: UITableViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    // MARK: - Private Properties
+    
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var directorLabel: UILabel!
+    @IBOutlet private weak var producerLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    
+    // MARK: - Private Methods
     
     private func applyModel() {
         titleLabel.text = cellModel?.title

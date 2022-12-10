@@ -7,11 +7,15 @@
 
 import UIKit
 
-class CharactersListTableViewCell: UITableViewCell {
+final class CharactersListTableViewCell: UITableViewCell {
+    
+    // MARK: - Private Properties
 
-    @IBOutlet weak var genderLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var dateOfBirthLabel: UILabel!
+    @IBOutlet private weak var genderLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var dateOfBirthLabel: UILabel!
+    
+    // MARK: - Properties
     
     var cellModel: CharactersListViewModel? {
         didSet {
@@ -19,12 +23,9 @@ class CharactersListTableViewCell: UITableViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    // MARK: - Private Methods
     
-    func applyModel() {
+    private func applyModel() {
         nameLabel.text = cellModel?.name
         genderLabel.text = cellModel?.gender
         dateOfBirthLabel.text = cellModel?.birthYear
