@@ -27,6 +27,7 @@
         <attribute name="diameter" optional="YES" attributeType="String"/>
         <attribute name="gravity" optional="YES" attributeType="String"/>
         <attribute name="land" optional="YES" attributeType="String"/>
+        <attribute name="link" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="population" optional="YES" attributeType="String"/>
         <relationship name="character" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="world" inverseEntity="Character"/>

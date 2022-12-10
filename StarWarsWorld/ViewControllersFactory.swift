@@ -43,9 +43,11 @@ struct ViewControllersFactory: IViewControllersFactory {
     }
     
     func createWorldModule(url: String) -> UIViewController {
+        let coreDataService = CoreDataService(coreDataStack: coreDataStack)
         let viewModel = WorldViewModelController(url: url,
                                                  requestSender: requestSender,
-                                                 requestFactory: requestFactory)
+                                                 requestFactory: requestFactory,
+                                                 coreDataService: coreDataService)
         let view = WorldViewController()
         view.viewModel = viewModel
         return view

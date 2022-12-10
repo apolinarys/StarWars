@@ -8,5 +8,11 @@
 import Foundation
 
 struct WorldModel {
-    let url: String
+    let link: String
+    let name: String
+    let gravity: String
+    let population: String
+    let landType: String
+    let climate: String
+    let diameter: String
 }

@@ -12,6 +12,8 @@ protocol ICoreDataService {
     func saveFilms(films: [FilmModel])
     func getCharacters(urls: [String]) -> [CharactersModel]
     func saveCharacters(characters: [CharactersModel])
+    func getWorld(link: String) -> WorldModel?
+    func saveWorld(world: WorldModel)
 }
 
 class CoreDataService: ICoreDataService {
@@ -82,6 +84,44 @@ class CoreDataService: ICoreDataService {
                 savingCharacter.link = character.link
             }
         }
+    }
+    
+    func getWorld(link: String) -> WorldModel? {
+        guard let world = findWorld(link: link),
+                let name = world.name,
+                let gravity = world.gravity,
+                let land = world.land,
+                let diameter = world.diameter,
+                let population = world.population,
+                let climate = world.climate
+        else { return nil }
+        return WorldModel(link: link,
+                          name: name,
+                          gravity: gravity,
+                          population: population,
+                          landType: land,
+                          climate: climate,
+                          diameter: diameter)
+    }
+    
+    func saveWorld(world: WorldModel) {
+        coreDataStack.performSave { context in
+            let savingWorld = World(context: context)
+            savingWorld.diameter = world.diameter
+            savingWorld.climate = world.climate
+            savingWorld.gravity = world.gravity
+            savingWorld.population = world.population
+            savingWorld.name = world.name
+            savingWorld.link = world.link
+            savingWorld.land = world.landType
+        }
+    }
+    
+    private func findWorld(link: String) -> World? {
+        let fetchRequest: NSFetchRequest<World> = World.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "link = '\(link)'")
+        guard let world = coreDataStack.fetch(fetchRequest: fetchRequest)?.first else { return nil }
+        return world
     }
     
     private func findCharacters(urls: [String]) -> [Character] {
