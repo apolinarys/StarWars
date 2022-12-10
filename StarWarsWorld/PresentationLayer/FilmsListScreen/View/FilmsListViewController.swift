@@ -12,7 +12,9 @@ class FilmsListViewController: UIViewController {
     var viewModelController: IFilmsListViewModelController?
     var router: IRouter?
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    
+    @IBOutlet weak var searchField: UITextField!
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -22,6 +24,7 @@ class FilmsListViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        searchField.delegate = self
         
         getFilms()
     }
@@ -48,6 +51,10 @@ class FilmsListViewController: UIViewController {
             self?.showErrorAlert(message: message)
         })
     }
+    
+    @IBAction func searchButtonPressed(_ sender: UIButton) {
+        searchField.endEditing(true)
+    }
 }
 
 extension FilmsListViewController: UITableViewDataSource {
@@ -72,5 +79,36 @@ extension FilmsListViewController: UITableViewDelegate {
         router?.presentCharacters(urls: urls ?? [])
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension FilmsListViewController: UITextFieldDelegate {
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            return true
+        } else {
+            searchField.placeholder = "Search a film"
+            return false
+        }
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        getFilms()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let film = searchField.text {
+            viewModelController?.searchFilm(text: film)
+            tableView.reloadData()
+        }
     }
 }

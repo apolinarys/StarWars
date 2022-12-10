@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilmsListViewController" customModule="StarWarsWorld" customModuleProvider="target">
             <connections>
-                <outlet property="searchBar" destination="whL-Nz-hpl" id="rIX-Bo-AVJ"/>
+                <outlet property="searchField" destination="fCa-jr-fD0" id="xjk-YG-6mI"/>
                 <outlet property="tableView" destination="0Or-cL-wk5" id="1A7-9b-ELL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,33 +21,52 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="whL-Nz-hpl">
-                    <rect key="frame" x="0.0" y="59" width="393" height="56"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="MmT-1d-JOd"/>
-                    </connections>
-                </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Or-cL-wk5">
-                    <rect key="frame" x="0.0" y="115" width="393" height="703"/>
+                    <rect key="frame" x="10" y="109" width="373" height="709"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search a film" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="fCa-jr-fD0">
+                    <rect key="frame" x="10" y="69" width="323" height="40"/>
+                    <color key="backgroundColor" red="0.60784313729999995" green="0.63529411759999999" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="866-rk-sFO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6H-k4-aQu">
+                    <rect key="frame" x="343" y="69" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="6Zn-JP-cTJ"/>
+                        <constraint firstAttribute="width" constant="40" id="hk2-Af-ICX"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="rAJ-8F-wcD"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="yqm-8j-4wU"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="magnifyingglass" catalog="system"/>
+                    <connections>
+                        <action selector="searchButtonPressed:" destination="-1" eventType="touchUpInside" id="46d-cG-3Cl"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="0Or-cL-wk5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Bih-6s-YcU"/>
-                <constraint firstItem="whL-Nz-hpl" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="MQy-zD-iNA"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0Or-cL-wk5" secondAttribute="bottom" id="QmQ-Xc-QSq"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0Or-cL-wk5" secondAttribute="trailing" id="XSn-Nx-siN"/>
-                <constraint firstItem="whL-Nz-hpl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="XtL-3k-Hdq"/>
-                <constraint firstItem="0Or-cL-wk5" firstAttribute="top" secondItem="whL-Nz-hpl" secondAttribute="bottom" id="nYZ-EV-beK"/>
-                <constraint firstItem="whL-Nz-hpl" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="qvK-J5-yYc"/>
+                <constraint firstItem="H6H-k4-aQu" firstAttribute="leading" secondItem="fCa-jr-fD0" secondAttribute="trailing" constant="10" id="BU2-dC-q0p"/>
+                <constraint firstItem="fCa-jr-fD0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="BWK-iU-G8a"/>
+                <constraint firstItem="fCa-jr-fD0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="JR3-Mv-svX"/>
+                <constraint firstItem="0Or-cL-wk5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="Nqf-kG-wo5"/>
+                <constraint firstItem="0Or-cL-wk5" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="OzC-Qj-dS9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0Or-cL-wk5" secondAttribute="trailing" constant="10" id="XHB-xZ-nvT"/>
+                <constraint firstItem="0Or-cL-wk5" firstAttribute="top" secondItem="fCa-jr-fD0" secondAttribute="bottom" id="bd0-DU-qZi"/>
+                <constraint firstItem="H6H-k4-aQu" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="fXq-pj-jYP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="H6H-k4-aQu" secondAttribute="trailing" constant="10" id="jWj-eC-nM7"/>
             </constraints>
             <point key="canvasLocation" x="35.877862595419849" y="19.718309859154932"/>
         </view>
     </objects>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

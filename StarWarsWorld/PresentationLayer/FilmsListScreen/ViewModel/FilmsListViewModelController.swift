@@ -12,6 +12,7 @@ protocol IFilmsListViewModelController {
     func loadFilms(_ success: (() -> Void)?, failure: ((String) -> Void)?)
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel?
     func createCharactersModel(at indexPath: IndexPath) -> [String]
+    func searchFilm(text: String)
 }
 
 class FilmsListViewModelController: IFilmsListViewModelController {
@@ -81,6 +82,10 @@ class FilmsListViewModelController: IFilmsListViewModelController {
     
     func createCharactersModel(at indexPath: IndexPath) -> [String] {
         return filmsModel[indexPath.row].characters
+    }
+    
+    func searchFilm(text: String) {
+        filmsViewModelList = filmsViewModelList.filter {$0.title.lowercased().contains(text.lowercased())}
     }
     
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel? {
