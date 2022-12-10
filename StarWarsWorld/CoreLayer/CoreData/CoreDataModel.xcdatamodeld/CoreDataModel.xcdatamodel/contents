@@ -4,19 +4,22 @@
         <attribute name="birthYear" optional="YES" attributeType="String"/>
         <attribute name="gender" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="worldLink" optional="YES" attributeType="String"/>
         <relationship name="films" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Film" inverseName="characters" inverseEntity="Film"/>
         <relationship name="world" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="World" inverseName="character" inverseEntity="World"/>
     </entity>
+    <entity name="CharacterLinks" representedClassName="CharacterLinks" syncable="YES" codeGenerationType="class">
+        <attribute name="link" optional="YES" attributeType="String"/>
+        <relationship name="film" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Film" inverseName="links" inverseEntity="Film"/>
+    </entity>
     <entity name="Film" representedClassName="Film" syncable="YES" codeGenerationType="class">
-        <attribute name="attribute" optional="YES"/>
-        <attribute name="attribute1" optional="YES"/>
-        <attribute name="attribute2" optional="YES"/>
         <attribute name="director" optional="YES" attributeType="String"/>
-        <attribute name="episodeId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="episodeId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="producer" optional="YES" attributeType="String"/>
         <attribute name="releaseDate" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="films" inverseEntity="Character"/>
+        <relationship name="links" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CharacterLinks" inverseName="film" inverseEntity="CharacterLinks"/>
     </entity>
     <entity name="World" representedClassName="World" syncable="YES" codeGenerationType="class">
         <attribute name="climate" optional="YES" attributeType="String"/>

@@ -20,10 +20,12 @@ class FilmsListViewModelController: IFilmsListViewModelController {
     private let requestSender: IRequestSender
     private let requestFactory: IRequestFactory
     private var filmsModel: [FilmModel] = []
+    private let coreDataService: ICoreDataService
     
-    init(requestSender: IRequestSender, requestFactory: IRequestFactory) {
+    init(requestSender: IRequestSender, requestFactory: IRequestFactory, coreDataService: ICoreDataService) {
         self.requestSender = requestSender
         self.requestFactory = requestFactory
+        self.coreDataService = coreDataService
     }
     
     var filmsCount: Int {
@@ -31,16 +33,40 @@ class FilmsListViewModelController: IFilmsListViewModelController {
     }
     
     func loadFilms(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
+        loadWithCoreData()
+        guard filmsModel.isEmpty else {
+            success?()
+            return
+        }
+        loadWithURLSession(success, failure: failure)
+    }
+    
+    private func loadWithCoreData() {
+        filmsModel = coreDataService.getFilms()
+        filmsViewModelList = filmsModel.map {film in
+            let date = film.date.split(separator: "-")
+            return FilmsListViewModel(title: film.name,
+                                      director: film.director,
+                                      producer: film.producer,
+                                      date: "\(date[2]).\(date[1]).\(date[0])")
+        }
+    }
+    
+    private func loadWithURLSession(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
         Task(priority: .userInitiated) {
             do {
                 filmsModel = try await requestSender.send(requestConfig: requestFactory.filmsConfig()) ?? []
                 filmsViewModelList = filmsModel.map {film in
                     let date = film.date.split(separator: "-")
-                    return FilmsListViewModel(title: film.name, director: film.director, producer: film.producer, date: "\(date[2]).\(date[1]).\(date[0])")
+                    return FilmsListViewModel(title: film.name,
+                                              director: film.director,
+                                              producer: film.producer,
+                                              date: "\(date[2]).\(date[1]).\(date[0])")
                 }
                 DispatchQueue.main.async {
                     success?()
                 }
+                coreDataService.saveFilms(films: filmsModel)
             } catch NetworkError.unknownError {
                 DispatchQueue.main.async {
                     failure?("Request timeout")

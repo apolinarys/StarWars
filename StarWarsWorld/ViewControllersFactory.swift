@@ -15,12 +15,15 @@ protocol IViewControllersFactory {
 
 struct ViewControllersFactory: IViewControllersFactory {
     
-    let requestSender = RequestSender()
-    let requestFactory = RequestsFactory()
+    private let requestSender = RequestSender()
+    private let requestFactory = RequestsFactory()
+    private let coreDataStack = CoreDataStack()
     
     func createFilmsModule(router: IRouter) -> UIViewController {
+        let coreDataService = CoreDataService(coreDataStack: coreDataStack)
         let viewModel = FilmsListViewModelController(requestSender: requestSender,
-                                                     requestFactory: requestFactory)
+                                                     requestFactory: requestFactory,
+                                                     coreDataService: coreDataService)
         let view = FilmsListViewController()
         view.router = router
         view.viewModelController = viewModel

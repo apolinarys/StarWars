@@ -17,7 +17,7 @@ private extension String {
     static let coreDataStackContainerName = "CoreDataModel"
 }
 
-final class NewCoreDataStack: ICoreDataStack {
+final class CoreDataStack: ICoreDataStack {
     
     private lazy var container: NSPersistentContainer = {
         let container = NSPersistentContainer(name: String.coreDataStackContainerName)
