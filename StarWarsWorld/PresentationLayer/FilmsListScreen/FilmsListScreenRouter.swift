@@ -41,6 +41,6 @@ final class FilmsListRouter: IFilmsListRouter {
             film: film
         )
         
-        transitionHandler?.present(charactersListViewController, animated: true)
+        transitionHandler?.navigationController?.pushViewController(charactersListViewController, animated: true)
     }
 }

@@ -25,11 +25,12 @@ final class FilmsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "FilmsListTableViewCell", bundle: nil), forCellReuseIdentifier: "FilmsListTableViewCell")
+        tableView.register(UINib(nibName: Constants.filmCelId, bundle: nil), forCellReuseIdentifier: Constants.filmCelId)
         
         tableView.dataSource = self
         tableView.delegate = self
         searchField.delegate = self
+        navigationItem.title = "Films"
         
         getFilms()
     }
@@ -60,7 +61,7 @@ extension FilmsListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FilmsListTableViewCell", for: indexPath) as? FilmsListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.filmCelId, for: indexPath) as? FilmsListTableViewCell
         guard let cell = cell else {
             print("error")
             return UITableViewCell()

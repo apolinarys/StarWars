@@ -38,6 +38,6 @@ final class CharactersListRouter: ICharactersListRouter {
     func presentWorld(url: String) {
         let worldViewController = worldAssembly.assemble(url: url)
         
-        transitionHandler?.present(worldViewController, animated: true)
+        transitionHandler?.navigationController?.pushViewController(worldViewController, animated: true)
     }
 }

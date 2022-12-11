@@ -59,6 +59,7 @@
 		FAAB3F342943318500A4999E /* CharactersResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB3F332943318500A4999E /* CharactersResponseModel.swift */; };
 		FAAB3F372943326C00A4999E /* CharactersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB3F362943326C00A4999E /* CharactersRequest.swift */; };
 		FAAB3F392943330500A4999E /* CharactersParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB3F382943330500A4999E /* CharactersParser.swift */; };
+		FAB282352945DAFC0068FAA3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB282342945DAFC0068FAA3 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +117,7 @@
 		FAAB3F332943318500A4999E /* CharactersResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResponseModel.swift; sourceTree = "<group>"; };
 		FAAB3F362943326C00A4999E /* CharactersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersRequest.swift; sourceTree = "<group>"; };
 		FAAB3F382943330500A4999E /* CharactersParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersParser.swift; sourceTree = "<group>"; };
+		FAB282342945DAFC0068FAA3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +265,7 @@
 				FA85277F29409F8B004560D5 /* Main.storyboard */,
 				FA85278429409F8D004560D5 /* LaunchScreen.storyboard */,
 				FA85278229409F8D004560D5 /* Assets.xcassets */,
+				FAB282342945DAFC0068FAA3 /* Constants.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				FA8527972940B007004560D5 /* FilmsRequest.swift in Sources */,
 				FAAB3F2829432A7D00A4999E /* CharactersListTableViewCell.swift in Sources */,
 				FA040A372945BED200C76868 /* Atomic.swift in Sources */,
+				FAB282352945DAFC0068FAA3 /* Constants.swift in Sources */,
 				FAAB3F372943326C00A4999E /* CharactersRequest.swift in Sources */,
 				FA040A3F2945BFD700C76868 /* Locator.swift in Sources */,
 				FA040A012943354C00C76868 /* CharactersViewModelController.swift in Sources */,

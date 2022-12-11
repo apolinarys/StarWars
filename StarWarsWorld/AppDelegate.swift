@@ -21,7 +21,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let filmsListAssembly = Locator.shared.resolve(IFilmsListAssembly.self)
         
-        window?.rootViewController = filmsListAssembly.assemble()
+        window?.rootViewController = UINavigationController(
+            rootViewController: filmsListAssembly.assemble()
+        )
         window?.makeKeyAndVisible()
         
         return true

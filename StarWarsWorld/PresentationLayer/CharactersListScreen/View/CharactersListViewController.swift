@@ -27,7 +27,7 @@ final class CharactersListViewController: UIViewController {
         
         navigationItem.title = viewModelController?.filmName
         
-        tableView.register(UINib(nibName: "CharactersListTableViewCell", bundle: nil), forCellReuseIdentifier: "CharactersListTableViewCell")
+        tableView.register(UINib(nibName: Constants.characterCellId, bundle: nil), forCellReuseIdentifier: Constants.characterCellId)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -57,7 +57,7 @@ extension CharactersListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CharactersListTableViewCell", for: indexPath) as? CharactersListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.characterCellId, for: indexPath) as? CharactersListTableViewCell
         guard let cell = cell else {
             print("error")
             return UITableViewCell()
