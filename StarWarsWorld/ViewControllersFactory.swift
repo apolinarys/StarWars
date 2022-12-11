@@ -25,7 +25,6 @@ struct ViewControllersFactory: IViewControllersFactory {
                                                      requestFactory: requestFactory,
                                                      coreDataService: coreDataService)
         let view = FilmsListViewController()
-        view.router = router
         view.viewModelController = viewModel
         return view
     }
@@ -39,7 +38,6 @@ struct ViewControllersFactory: IViewControllersFactory {
                                                       filmName: film)
         let view = CharactersListViewController()
         view.viewModelController = viewModel
-        view.router = router
         return view
     }
     

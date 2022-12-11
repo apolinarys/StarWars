@@ -17,7 +17,7 @@ final class CharactersListViewController: UIViewController {
     // MARK: - Dependencies
     
     var viewModelController: ICharactersViewModelController?
-    var router: IRouter?
+    var router: ICharactersListRouter?
     var errorAlertFactory: ErrorAlertsFactory?
     
     // MARK: - UIViewController

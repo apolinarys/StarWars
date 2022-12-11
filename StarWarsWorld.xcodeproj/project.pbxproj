@@ -20,6 +20,11 @@
 		FA040A1A2943A02600C76868 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A192943A02600C76868 /* CoreDataStack.swift */; };
 		FA040A1D2943A05400C76868 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA040A1B2943A05400C76868 /* CoreDataModel.xcdatamodeld */; };
 		FA040A232943A2B500C76868 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A222943A2B500C76868 /* CoreDataService.swift */; };
+		FA040A272945275700C76868 /* FilmsListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A262945275700C76868 /* FilmsListAssembly.swift */; };
+		FA040A292945B33300C76868 /* FilmsListScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A282945B33300C76868 /* FilmsListScreenRouter.swift */; };
+		FA040A2B2945B3CC00C76868 /* CharactersListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A2A2945B3CC00C76868 /* CharactersListAssembly.swift */; };
+		FA040A2D2945B40D00C76868 /* CharactersListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A2C2945B40D00C76868 /* CharactersListRouter.swift */; };
+		FA040A2F2945B45400C76868 /* WorldAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA040A2E2945B45400C76868 /* WorldAssembly.swift */; };
 		FA85277A29409F8B004560D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85277929409F8B004560D5 /* AppDelegate.swift */; };
 		FA85278129409F8B004560D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA85277F29409F8B004560D5 /* Main.storyboard */; };
 		FA85278329409F8D004560D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA85278229409F8D004560D5 /* Assets.xcassets */; };
@@ -67,6 +72,11 @@
 		FA040A192943A02600C76868 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		FA040A1C2943A05400C76868 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		FA040A222943A2B500C76868 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		FA040A262945275700C76868 /* FilmsListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmsListAssembly.swift; sourceTree = "<group>"; };
+		FA040A282945B33300C76868 /* FilmsListScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmsListScreenRouter.swift; sourceTree = "<group>"; };
+		FA040A2A2945B3CC00C76868 /* CharactersListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListAssembly.swift; sourceTree = "<group>"; };
+		FA040A2C2945B40D00C76868 /* CharactersListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListRouter.swift; sourceTree = "<group>"; };
+		FA040A2E2945B45400C76868 /* WorldAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldAssembly.swift; sourceTree = "<group>"; };
 		FA85277629409F8B004560D5 /* StarWarsWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWarsWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA85277929409F8B004560D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA85278029409F8B004560D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -116,6 +126,7 @@
 		FA040A0229436EA700C76868 /* WorldScreen */ = {
 			isa = PBXGroup;
 			children = (
+				FA040A2E2945B45400C76868 /* WorldAssembly.swift */,
 				FA040A0A294377BF00C76868 /* View */,
 				FA040A09294377B800C76868 /* Model */,
 				FA040A1429437A4600C76868 /* ViewModel */,
@@ -334,6 +345,8 @@
 		FA88DA362942243000C17145 /* FilmsListScreen */ = {
 			isa = PBXGroup;
 			children = (
+				FA040A262945275700C76868 /* FilmsListAssembly.swift */,
+				FA040A282945B33300C76868 /* FilmsListScreenRouter.swift */,
 				FA8527B02940B9A3004560D5 /* Model */,
 				FA8527AF2940B972004560D5 /* View */,
 				FA8527B52940B9F8004560D5 /* ViewModel */,
@@ -344,6 +357,8 @@
 		FAAB3F212943272100A4999E /* CharactersListScreen */ = {
 			isa = PBXGroup;
 			children = (
+				FA040A2A2945B3CC00C76868 /* CharactersListAssembly.swift */,
+				FA040A2C2945B40D00C76868 /* CharactersListRouter.swift */,
 				FAAB3F2F294330C600A4999E /* Model */,
 				FAAB3F2E294330BF00A4999E /* View */,
 				FAAB3F352943324B00A4999E /* ViewModel */,
@@ -469,6 +484,7 @@
 				FA8527A32940B140004560D5 /* NetworkProtocols.swift in Sources */,
 				FA8527BA2940D045004560D5 /* FilmsListTableViewCell.swift in Sources */,
 				FA85277A29409F8B004560D5 /* AppDelegate.swift in Sources */,
+				FA040A2B2945B3CC00C76868 /* CharactersListAssembly.swift in Sources */,
 				FA040A112943799500C76868 /* WorldRequest.swift in Sources */,
 				FA8527B42940B9D9004560D5 /* FilmsListViewModelController.swift in Sources */,
 				FA85279B2940B091004560D5 /* RequestsFactory.swift in Sources */,
@@ -479,16 +495,19 @@
 				FAAB3F2B29432D7300A4999E /* CharacterModel.swift in Sources */,
 				FA8527952940AFEA004560D5 /* RequestSender.swift in Sources */,
 				FA8527B72940C5B3004560D5 /* Logger.swift in Sources */,
+				FA040A2F2945B45400C76868 /* WorldAssembly.swift in Sources */,
 				FAAB3F242943273D00A4999E /* CharactersListViewController.swift in Sources */,
 				FA040A0F2943788400C76868 /* WorldResponseModel.swift in Sources */,
 				FA040A232943A2B500C76868 /* CoreDataService.swift in Sources */,
 				FA85279E2940B0FB004560D5 /* RequestConfig.swift in Sources */,
+				FA040A292945B33300C76868 /* FilmsListScreenRouter.swift in Sources */,
 				FA040A13294379C000C76868 /* WorldParser.swift in Sources */,
 				FA040A1629437A5C00C76868 /* WorldViewModelController.swift in Sources */,
 				FA040A1D2943A05400C76868 /* CoreDataModel.xcdatamodeld in Sources */,
 				FA8527992940B041004560D5 /* FilmsParser.swift in Sources */,
 				FA88DA352942227300C17145 /* ViewControllersFactory.swift in Sources */,
 				FAAB3F2D29432F2F00A4999E /* Router.swift in Sources */,
+				FA040A2D2945B40D00C76868 /* CharactersListRouter.swift in Sources */,
 				FA040A082943778800C76868 /* WorldModel.swift in Sources */,
 				FAAB3F312943311100A4999E /* CharactersListViewModel.swift in Sources */,
 				FA8527B22940B9BB004560D5 /* FilmsListViewModel.swift in Sources */,
@@ -501,6 +520,7 @@
 				FA85278F2940A435004560D5 /* FilmsResponseModel.swift in Sources */,
 				FA8527A72940B23F004560D5 /* FilmModel.swift in Sources */,
 				FA8527A02940B118004560D5 /* NetworkError.swift in Sources */,
+				FA040A272945275700C76868 /* FilmsListAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

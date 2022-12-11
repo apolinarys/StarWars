@@ -12,7 +12,7 @@ final class FilmsListViewController: UIViewController {
     // MARK: - Properties
     
     var viewModelController: IFilmsListViewModelController?
-    var router: IRouter?
+    var router: IFilmsListRouter?
     var errorAlertFactory: ErrorAlertsFactory?
     
     // MARK: - Private Properties
@@ -75,8 +75,11 @@ extension FilmsListViewController: UITableViewDataSource {
 extension FilmsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let urls = viewModelController?.createCharactersModel(at: indexPath)
-        router?.presentCharacters(urls: urls ?? [],
-                                  film: viewModelController?.viewModel(at: indexPath)?.title ?? "")
+        
+        router?.presentCharactersList(
+            urls: urls ?? [],
+            film: viewModelController?.viewModel(at: indexPath)?.title ?? ""
+        )
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
