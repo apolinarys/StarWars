@@ -53,12 +53,12 @@ final class FilmsListAssembly: IFilmsListAssembly {
         
         let router = FilmsListRouter(
             charactersListAssembly: charactersListAssembly,
+            errorAlertFactory: errorAlertFactory,
             transitionHandler: view
         )
         
         view.router = router
         view.viewModelController = viewModel
-        view.errorAlertFactory = errorAlertFactory
         
         return view
     }

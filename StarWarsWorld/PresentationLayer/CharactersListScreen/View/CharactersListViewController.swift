@@ -18,7 +18,6 @@ final class CharactersListViewController: UIViewController {
     
     var viewModelController: ICharactersViewModelController?
     var router: ICharactersListRouter?
-    var errorAlertFactory: IErrorAlertsFactory?
     
     // MARK: - UIViewController
     
@@ -27,7 +26,10 @@ final class CharactersListViewController: UIViewController {
         
         navigationItem.title = viewModelController?.filmName
         
-        tableView.register(UINib(nibName: Constants.characterCellId, bundle: nil), forCellReuseIdentifier: Constants.characterCellId)
+        tableView.register(
+            UINib(nibName: Constants.characterCellId, bundle: nil),
+            forCellReuseIdentifier: Constants.characterCellId
+        )
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -39,12 +41,12 @@ final class CharactersListViewController: UIViewController {
     
     private func getCharacters() {
         viewModelController?.loadCharacters({ [weak self] in
-            self?.tableView.reloadData()
+            Task(priority: .userInitiated) { self?.tableView.reloadData() }
         }, failure: { [weak self] message in
-            guard let alertController = self?.errorAlertFactory?.createErrorAlert(message: message, completion: {
-                self?.getCharacters()
-            }) else { return }
-            self?.present(alertController, animated: true)
+            self?.router?.presentErrorAlert(
+                message: message,
+                completion: { self?.getCharacters() }
+            )
         })
     }
 }

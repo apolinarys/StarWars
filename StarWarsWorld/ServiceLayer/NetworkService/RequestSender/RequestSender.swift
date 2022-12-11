@@ -26,21 +26,23 @@ struct RequestSender: IRequestSender {
     func send<Parser>(requestConfig config: RequestConfig<Parser>) async throws -> Parser.Model? where Parser: IParser {
         
         guard let urlRequest = config.request.urlRequest else {
-            throw NetworkError.badData
+            throw NetworkError.noConnection
         }
         
-        let (data, response) = try await session.data(for: urlRequest)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.badURL
+        do {
+            let (data, _) = try await session.data(for: urlRequest)
+            
+            guard let parsedModel: Parser.Model = config.parser.parse(data: data) else {
+                throw NetworkError.badData
+            }
+            
+            return parsedModel
+        } catch {
+            if let _ = config.request.urlRequest {
+                throw NetworkError.unknownError
+            } else {
+                throw NetworkError.noConnection
+            }
         }
-        
-        print(httpResponse.statusCode)
-        
-        guard let parsedModel: Parser.Model = config.parser.parse(data: data) else {
-            throw NetworkError.badData
-        }
-        
-        return parsedModel
     }
 }

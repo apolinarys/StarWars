@@ -13,6 +13,9 @@ protocol IFilmsListRouter: AnyObject {
     
     @MainActor
     func presentCharactersList(urls: [String], film: String)
+    
+    @MainActor
+    func presentErrorAlert(message: String, completion: @escaping () -> Void)
 }
 
 final class FilmsListRouter: IFilmsListRouter {
@@ -20,14 +23,17 @@ final class FilmsListRouter: IFilmsListRouter {
     // MARK: - Private Properties 
     
     private let charactersListAssembly: ICharactersListAssembly
+    private let errorAlertFactory: IErrorAlertsFactory
     
     private weak var transitionHandler: UIViewController?
     
     // MARK: - Initialization
     
     init(charactersListAssembly: ICharactersListAssembly,
+         errorAlertFactory: IErrorAlertsFactory,
          transitionHandler: UIViewController) {
         self.charactersListAssembly = charactersListAssembly
+        self.errorAlertFactory = errorAlertFactory
         
         self.transitionHandler = transitionHandler
     }
@@ -41,6 +47,23 @@ final class FilmsListRouter: IFilmsListRouter {
             film: film
         )
         
-        transitionHandler?.navigationController?.pushViewController(charactersListViewController, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.transitionHandler?.navigationController?.pushViewController(
+                charactersListViewController,
+                animated: true
+            )
+        }
+    }
+    
+    @MainActor
+    func presentErrorAlert(message: String, completion: @escaping () -> Void) {
+        let alertController = errorAlertFactory.createErrorAlert(
+            message: message,
+            completion: completion
+        )
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.transitionHandler?.present(alertController, animated: true)
+        }
     }
 }

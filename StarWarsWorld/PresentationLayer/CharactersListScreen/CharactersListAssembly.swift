@@ -56,12 +56,12 @@ final class CharactersListAssembly: ICharactersListAssembly {
         
         let router = CharactersListRouter(
             worldAssembly: worldAssembly,
+            errorAlertFactory: errorAlertFactory,
             transitionHandler: view
         )
         
         view.router = router
         view.viewModelController = viewModel
-        view.errorAlertFactory = errorAlertFactory
         
         return view
     }

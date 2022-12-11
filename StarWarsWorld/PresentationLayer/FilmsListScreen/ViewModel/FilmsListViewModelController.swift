@@ -79,18 +79,15 @@ final class FilmsListViewModelController: IFilmsListViewModelController {
                                               producer: film.producer,
                                               date: "\(date[2]).\(date[1]).\(date[0])")
                 }
-                DispatchQueue.main.async {
-                    success?()
-                }
+                
+                success?()
                 coreDataService.saveFilms(films: filmsModel)
             } catch NetworkError.unknownError {
-                DispatchQueue.main.async {
-                    failure?("Request timeout")
-                }
+                failure?("Request timeout")
             } catch NetworkError.noConnection {
-                DispatchQueue.main.async {
-                    failure?("No internet connection")
-                }
+                failure?("No internet connection")
+            } catch {
+                print(23)
             }
         }
     }

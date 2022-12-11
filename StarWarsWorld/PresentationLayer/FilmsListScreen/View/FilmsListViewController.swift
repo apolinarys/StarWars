@@ -13,7 +13,6 @@ final class FilmsListViewController: UIViewController {
     
     var viewModelController: IFilmsListViewModelController?
     var router: IFilmsListRouter?
-    var errorAlertFactory: IErrorAlertsFactory?
     
     // MARK: - Private Properties
     
@@ -25,7 +24,10 @@ final class FilmsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: Constants.filmCelId, bundle: nil), forCellReuseIdentifier: Constants.filmCelId)
+        tableView.register(
+            UINib(nibName: Constants.filmCelId, bundle: nil),
+            forCellReuseIdentifier: Constants.filmCelId
+        )
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -39,12 +41,12 @@ final class FilmsListViewController: UIViewController {
     
     private func getFilms() {
         viewModelController?.loadFilms({ [weak self] in
-            self?.tableView.reloadData()
+            Task(priority: .userInitiated) { self?.tableView.reloadData() }
         }, failure: { [weak self] message in
-            guard let alertController = self?.errorAlertFactory?.createErrorAlert(message: message, completion: {
-                self?.getFilms()
-            }) else { return }
-            self?.present(alertController, animated: true)
+            self?.router?.presentErrorAlert(
+                message: message,
+                completion: { self?.getFilms() }
+            )
         })
     }
     
