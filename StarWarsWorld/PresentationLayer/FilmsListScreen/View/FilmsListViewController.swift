@@ -13,7 +13,7 @@ final class FilmsListViewController: UIViewController {
     
     var viewModelController: IFilmsListViewModelController?
     var router: IFilmsListRouter?
-    var errorAlertFactory: ErrorAlertsFactory?
+    var errorAlertFactory: IErrorAlertsFactory?
     
     // MARK: - Private Properties
     

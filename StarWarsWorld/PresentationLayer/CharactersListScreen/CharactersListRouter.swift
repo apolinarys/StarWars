@@ -9,15 +9,21 @@ import UIKit
 
 protocol ICharactersListRouter: AnyObject {
     
+    // MARK: - Methods
+    
     @MainActor
     func presentWorld(url: String)
 }
 
 final class CharactersListRouter: ICharactersListRouter {
     
+    // MARK: - Private Properties 
+    
     private let worldAssembly: IWorldAssembly
     
     private weak var transitionHandler: UIViewController?
+    
+    // MARK: - Initialization
     
     init(worldAssembly: IWorldAssembly,
          transitionHandler: UIViewController) {
@@ -25,6 +31,8 @@ final class CharactersListRouter: ICharactersListRouter {
         
         self.transitionHandler = transitionHandler
     }
+    
+    // MARK: - ICharactersListRouter
 
     @MainActor
     func presentWorld(url: String) {

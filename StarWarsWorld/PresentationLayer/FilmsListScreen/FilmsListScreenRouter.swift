@@ -9,15 +9,21 @@ import UIKit
 
 protocol IFilmsListRouter: AnyObject {
     
+    // MARK: - Methods
+    
     @MainActor
     func presentCharactersList(urls: [String], film: String)
 }
 
 final class FilmsListRouter: IFilmsListRouter {
     
+    // MARK: - Private Properties 
+    
     private let charactersListAssembly: ICharactersListAssembly
     
     private weak var transitionHandler: UIViewController?
+    
+    // MARK: - Initialization
     
     init(charactersListAssembly: ICharactersListAssembly,
          transitionHandler: UIViewController) {
@@ -25,6 +31,8 @@ final class FilmsListRouter: IFilmsListRouter {
         
         self.transitionHandler = transitionHandler
     }
+    
+    // MARK: - IFilmsListRouter
 
     @MainActor
     func presentCharactersList(urls: [String], film: String) {
