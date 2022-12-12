@@ -18,3 +18,19 @@ enum NetworkError: Error {
     
     case noConnection
 }
+
+extension NetworkError: LocalizedError {
+    
+    var errorDescription: String? {
+        switch self {
+        case .badURL:
+            return "Something wrong :("
+        case .badData:
+            return "Something wrong :("
+        case .unknownError:
+            return "Request Timeout"
+        case .noConnection:
+            return "No internet connection"
+        }
+    }
+}
