@@ -48,8 +48,13 @@ final class WorldAssembly: IWorldAssembly {
         
         let view = WorldViewController()
         
+        let router = WorldRouter(
+            errorAlertFactory: errorAlertFactory,
+            transitionHandler: view
+        )
+        
         view.viewModel = viewModel
-        view.errorAlertFactory = errorAlertFactory
+        view.router = router
         
         return view
     }
