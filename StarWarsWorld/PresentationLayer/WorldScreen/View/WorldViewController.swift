@@ -19,7 +19,7 @@ final class WorldViewController: UIViewController {
     // MARK: - Dependencies
     
     var viewModel: IWorldViewModelController?
-    var errorAlertFactory: IErrorAlertsFactory?
+    var router: IWorldRouter?
     
     // MARK: - UIViewController
     
@@ -31,14 +31,20 @@ final class WorldViewController: UIViewController {
     // MARK: - Private Methods
     
     private func getWorldModel () {
-        viewModel?.getWorldModel({ [weak self] model in
-            self?.applyViewModel(model: model)
-        }, failure: { [weak self] message in
-            guard let alertController = self?.errorAlertFactory?.createErrorAlert(message: message, completion: {
-                self?.getWorldModel()
-            }) else { return }
-            self?.present(alertController, animated: true)
-        })
+        Task { [weak self] in
+            do {
+                guard let model = try await viewModel?.getWorldModel() else {
+                    return
+                }
+                
+                self?.applyViewModel(model: model)
+            } catch {
+                self?.router?.presentErrorAlert(
+                    message: error.localizedDescription,
+                    completion: { self?.getWorldModel()  }
+                )
+            }
+        }
     }
     
     private func applyViewModel(model: WorldViewModel) {

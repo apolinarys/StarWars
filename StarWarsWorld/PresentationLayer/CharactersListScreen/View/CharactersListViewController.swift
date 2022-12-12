@@ -40,14 +40,18 @@ final class CharactersListViewController: UIViewController {
     // MARK: - Private Methods
     
     private func getCharacters() {
-        viewModelController?.loadCharacters({ [weak self] in
-            Task(priority: .userInitiated) { self?.tableView.reloadData() }
-        }, failure: { [weak self] message in
-            self?.router?.presentErrorAlert(
-                message: message,
-                completion: { self?.getCharacters() }
-            )
-        })
+        Task { [weak self] in
+            do {
+                try await self?.viewModelController?.loadCharacters()
+                
+                self?.tableView.reloadData()
+            } catch {
+                self?.router?.presentErrorAlert(
+                    message: error.localizedDescription,
+                    completion: { self?.getCharacters()  }
+                )
+            }
+        }
     }
 }
 

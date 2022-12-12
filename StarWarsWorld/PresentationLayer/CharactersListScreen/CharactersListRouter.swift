@@ -44,12 +44,10 @@ final class CharactersListRouter: ICharactersListRouter {
     func presentWorld(url: String) {
         let worldViewController = worldAssembly.assemble(url: url)
         
-        DispatchQueue.main.async { [weak self] in
-            self?.transitionHandler?.navigationController?.pushViewController(
-                worldViewController,
-                animated: true
-            )
-        }
+        transitionHandler?.navigationController?.pushViewController(
+            worldViewController,
+            animated: true
+        )
     }
     
     @MainActor
@@ -59,8 +57,6 @@ final class CharactersListRouter: ICharactersListRouter {
             completion: completion
         )
         
-        DispatchQueue.main.async { [weak self] in
-            self?.transitionHandler?.present(alertController, animated: true)
-        }
+        transitionHandler?.present(alertController, animated: true)
     }
 }

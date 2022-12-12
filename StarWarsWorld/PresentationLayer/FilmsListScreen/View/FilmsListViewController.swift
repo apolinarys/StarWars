@@ -40,14 +40,18 @@ final class FilmsListViewController: UIViewController {
     // MARK: - Private Methods
     
     private func getFilms() {
-        viewModelController?.loadFilms({ [weak self] in
-            Task(priority: .userInitiated) { self?.tableView.reloadData() }
-        }, failure: { [weak self] message in
-            self?.router?.presentErrorAlert(
-                message: message,
-                completion: { self?.getFilms() }
-            )
-        })
+        Task { [weak self] in
+            do {
+                try await self?.viewModelController?.loadFilms()
+                
+                self?.tableView.reloadData()
+            } catch {
+                self?.router?.presentErrorAlert(
+                    message: error.localizedDescription,
+                    completion: { self?.getFilms() }
+                )
+            }
+        }
     }
     
     @IBAction private func searchButtonPressed(_ sender: UIButton) {

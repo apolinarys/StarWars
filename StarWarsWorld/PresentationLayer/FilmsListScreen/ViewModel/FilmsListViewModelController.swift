@@ -16,7 +16,7 @@ protocol IFilmsListViewModelController {
     
     // MARK: - Methods
 
-    func loadFilms(_ success: (() -> Void)?, failure: ((String) -> Void)?)
+    func loadFilms() async throws
     func viewModel(at indexPath: IndexPath) -> FilmsListViewModel?
     func createCharactersModel(at indexPath: IndexPath) -> [String]
     func searchFilm(text: String)
@@ -46,13 +46,12 @@ final class FilmsListViewModelController: IFilmsListViewModelController {
         return filmsViewModelList.count
     }
     
-    func loadFilms(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
+    func loadFilms() async throws {
         loadWithCoreData()
-        guard filmsModel.isEmpty else {
-            success?()
-            return
+        
+        if filmsModel.isEmpty {
+            try await loadWithURLSession()
         }
-        loadWithURLSession(success, failure: failure)
     }
     
     // MARK: - Private Methods
@@ -68,28 +67,19 @@ final class FilmsListViewModelController: IFilmsListViewModelController {
         }
     }
     
-    private func loadWithURLSession(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
-        Task(priority: .userInitiated) {
-            do {
-                filmsModel = try await requestSender.send(requestConfig: requestFactory.filmsConfig()) ?? []
-                filmsViewModelList = filmsModel.map {film in
-                    let date = film.date.split(separator: "-")
-                    return FilmsListViewModel(title: film.name,
-                                              director: film.director,
-                                              producer: film.producer,
-                                              date: "\(date[2]).\(date[1]).\(date[0])")
-                }
-                
-                success?()
-                coreDataService.saveFilms(films: filmsModel)
-            } catch NetworkError.unknownError {
-                failure?("Request timeout")
-            } catch NetworkError.noConnection {
-                failure?("No internet connection")
-            } catch {
-                print(23)
-            }
+    private func loadWithURLSession() async throws {
+        filmsModel = try await requestSender.send(requestConfig: requestFactory.filmsConfig()) 
+        
+        filmsViewModelList = filmsModel.map {film in
+            let date = film.date.split(separator: "-")
+            
+            return FilmsListViewModel(title: film.name,
+                                      director: film.director,
+                                      producer: film.producer,
+                                      date: "\(date[2]).\(date[1]).\(date[0])")
         }
+        
+        coreDataService.saveFilms(films: filmsModel)
     }
     
     func createCharactersModel(at indexPath: IndexPath) -> [String] {

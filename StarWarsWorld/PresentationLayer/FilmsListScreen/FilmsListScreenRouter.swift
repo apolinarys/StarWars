@@ -47,12 +47,10 @@ final class FilmsListRouter: IFilmsListRouter {
             film: film
         )
         
-        DispatchQueue.main.async { [weak self] in
-            self?.transitionHandler?.navigationController?.pushViewController(
-                charactersListViewController,
-                animated: true
-            )
-        }
+        transitionHandler?.navigationController?.pushViewController(
+            charactersListViewController,
+            animated: true
+        )
     }
     
     @MainActor
@@ -62,8 +60,6 @@ final class FilmsListRouter: IFilmsListRouter {
             completion: completion
         )
         
-        DispatchQueue.main.async { [weak self] in
-            self?.transitionHandler?.present(alertController, animated: true)
-        }
+        transitionHandler?.present(alertController, animated: true)
     }
 }

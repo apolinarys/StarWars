@@ -12,7 +12,7 @@ protocol IWorldViewModelController {
     
     // MARK: - Methods
     
-    func getWorldModel(_ success: ((WorldViewModel) -> Void)?, failure: ((String) -> Void)?)
+    func getWorldModel() async throws -> WorldViewModel
 }
 
 struct WorldViewModelController: IWorldViewModelController {
@@ -26,40 +26,30 @@ struct WorldViewModelController: IWorldViewModelController {
     
     // MARK: - IWorldViewModelController
     
-    func getWorldModel(_ success: ((WorldViewModel) -> Void)?, failure: ((String) -> Void)?) {
+    func getWorldModel() async throws -> WorldViewModel  {
         if let world = loadWithCoreData(link: url) {
-            success?(world)
-        } else {
-            loadWithURLSession(success, failure: failure)
+            return world
         }
+        
+        return try await loadWithURLSession()
     }
     
     // MARK: - Private Methods
     
-    private func loadWithURLSession(_ success: ((WorldViewModel) -> Void)?, failure: ((String) -> Void)?) {
-        Task(priority: .userInitiated) {
-            do {
-                guard let worldModel = try await requestSender.send(requestConfig: requestFactory.worldConfig(url: url)) else { return }
-                DispatchQueue.main.async {
-                    success?(worldModel)
-                }
-                coreDataService.saveWorld(world: WorldModel(link: url,
-                                                            name: worldModel.name,
-                                                            gravity: worldModel.gravity,
-                                                            population: worldModel.population,
-                                                            landType: worldModel.landType,
-                                                            climate: worldModel.climate,
-                                                            diameter: worldModel.diameter))
-            } catch NetworkError.unknownError {
-                DispatchQueue.main.async {
-                    failure?("Request timeout")
-                }
-            } catch NetworkError.noConnection {
-                DispatchQueue.main.async {
-                    failure?("No internet connection")
-                }
-            }
-        }
+    private func loadWithURLSession() async throws -> WorldViewModel {
+         let worldModel = try await requestSender.send(
+            requestConfig: requestFactory.worldConfig(url: url)
+        )
+        
+        coreDataService.saveWorld(world: WorldModel(link: url,
+                                                    name: worldModel.name,
+                                                    gravity: worldModel.gravity,
+                                                    population: worldModel.population,
+                                                    landType: worldModel.landType,
+                                                    climate: worldModel.climate,
+                                                    diameter: worldModel.diameter))
+        
+        return worldModel
     }
     
     private func loadWithCoreData(link: String) -> WorldViewModel? {

@@ -16,7 +16,7 @@ protocol ICharactersViewModelController {
     
     // MARK: - Methods
     
-    func loadCharacters(_ success: (() -> Void)?, failure: ((String) -> Void)?)
+    func loadCharacters() async throws
     func viewModel(at indexPath: IndexPath) -> CharactersListViewModel?
     func getWorldModel(at indexPath: IndexPath) -> String
 }
@@ -50,10 +50,11 @@ final class CharactersViewModelController : ICharactersViewModelController {
         return charactersModel.count
     }
     
-    func loadCharacters(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
+    func loadCharacters() async throws {
         loadWithCoreData()
+        
         if charactersModel.isEmpty {
-            loadWithURLSession(success, failure: failure)
+            try await loadWithURLSession()
         }
     }
     
@@ -77,27 +78,15 @@ final class CharactersViewModelController : ICharactersViewModelController {
        charactersModel = coreDataService.getCharacters(urls: urls)
     }
     
-    private func loadWithURLSession(_ success: (() -> Void)?, failure: ((String) -> Void)?) {
+    private func loadWithURLSession() async throws {
         for url in urls {
-            Task(priority: .userInitiated) {
-                do {
-                    guard var character = try await requestSender.send(requestConfig: requestFactory.characterConfig(url: url)) else { return }
-                    character.link = url
-                    charactersModel.append(character)
-                    DispatchQueue.main.async {
-                        success?()
-                    }
-                    coreDataService.saveCharacters(characters: charactersModel)
-                } catch NetworkError.unknownError {
-                    DispatchQueue.main.async {
-                        failure?("Request timeout")
-                    }
-                } catch NetworkError.noConnection {
-                    DispatchQueue.main.async {
-                        failure?("No internet connection")
-                    }
-                }
-            }
+            var character = try await requestSender.send(
+                requestConfig: requestFactory.characterConfig(url: url)
+            )
+            character.link = url
+            charactersModel.append(character)
+            
+            coreDataService.saveCharacters(characters: charactersModel)
         }
     }
 }
